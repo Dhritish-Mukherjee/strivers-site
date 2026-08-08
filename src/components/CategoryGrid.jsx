@@ -128,7 +128,7 @@ function Card({ cat, delay, featured }) {
 
 export default function CategoryGrid() {
   return (
-    <section id="courses" className="hairline-bottom" style={{ background:'transparent', position: 'relative' }}>
+    <section id="courses" className="hairline-bottom" style={{ background:'transparent', position: 'relative', overflowX: 'hidden' }}>
       <div className="container section-py" style={{ position: 'relative' }}>
         {/* Giant Ghost Text Background (Maximalist typography texture) */}
         <motion.div

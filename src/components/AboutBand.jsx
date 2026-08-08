@@ -5,7 +5,7 @@ export default function AboutBand() {
   const [ref, inView] = useInViewOnce({ threshold: 0.2 });
 
   return (
-    <section id="about" style={{ background: 'transparent', position: 'relative' }}>
+    <section id="about" style={{ background: 'transparent', position: 'relative', overflowX: 'hidden' }}>
       {/* Container with relative position for absolute decorative elements */}
       <div className="container" style={{ paddingTop: '2rem', paddingBottom: '3rem', position: 'relative' }}>
         

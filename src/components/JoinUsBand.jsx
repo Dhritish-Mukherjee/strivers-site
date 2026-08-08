@@ -5,7 +5,7 @@ import { useInViewOnce } from '../hooks/useInViewOnce.js';
 export default function JoinUsBand() {
   const [ref, inView] = useInViewOnce();
   return (
-    <section id="community" ref={ref} style={{ background: 'var(--color-tertiary)', borderTop: '4px solid var(--color-ink)', borderBottom: '4px solid var(--color-ink)' }}>
+    <section id="community" ref={ref} style={{ background: 'var(--color-tertiary)', borderTop: '4px solid var(--color-ink)', borderBottom: '4px solid var(--color-ink)', overflow: 'hidden' }}>
       <div className="container section-py">
         {/* Label */}
         <p style={{
@@ -73,6 +73,7 @@ export default function JoinUsBand() {
           initial={{ opacity: 0, y: 12 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.15 }}
+          className="stats-grid"
           style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', border: '4px solid var(--color-ink)', background: '#fff', boxShadow: 'var(--shadow-brutal)' }}
         >
           {[
@@ -95,6 +96,9 @@ export default function JoinUsBand() {
       <style>{`
         @media (max-width: 640px) {
           .join-grid { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
+          .stats-grid { grid-template-columns: 1fr !important; }
+          .stats-grid > div { border-right: none !important; border-bottom: 4px solid var(--color-ink) !important; }
+          .stats-grid > div:last-child { border-bottom: none !important; }
         }
       `}</style>
     </section>
