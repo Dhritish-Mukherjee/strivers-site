@@ -104,10 +104,9 @@ export default function StatsBanner() {
 
       <style>{`
         @media(max-width:640px){
-          .stats-grid{grid-template-columns:1fr 1fr!important;}
-          .stat-cell:nth-child(1),.stat-cell:nth-child(2){border-bottom:4px solid var(--color-ink)!important;}
-          .stat-cell:nth-child(1),.stat-cell:nth-child(3){border-right:4px solid var(--color-ink)!important;}
-          .stat-cell:nth-child(2),.stat-cell:nth-child(4){border-right:none!important;}
+          .stats-grid{grid-template-columns:1fr!important;}
+          .stat-cell{border-right:none!important;border-bottom:4px solid var(--color-ink)!important;}
+          .stat-cell:last-child{border-bottom:none!important;}
         }
       `}</style>
     </section>

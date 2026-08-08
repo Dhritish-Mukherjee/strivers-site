@@ -259,7 +259,7 @@ export default function FacultyCarousel() {
       <ParticleNetwork density={20000} />
       
       {/* Giant Ghost Text Background (Maximalist typography texture) */}
-      <div style={{
+      <div className="faculty-ghost-text" style={{
         position: 'absolute',
         top: '10%',
         right: '-5%',
@@ -278,7 +278,7 @@ export default function FacultyCarousel() {
       </div>
 
       <div className="container" style={{ paddingTop:'var(--section-py)', position:'relative', zIndex: 10 }}>
-        <div style={{ display:'flex', alignItems:'flex-end', justifyContent:'space-between', marginBottom:'2.25rem' }}>
+        <div className="faculty-header" style={{ display:'flex', alignItems:'flex-end', justifyContent:'space-between', marginBottom:'2.25rem' }}>
           <div style={{ position: 'relative', background: 'var(--color-yellow)', padding: '1rem', border: '4px solid var(--color-ink)', boxShadow: '6px 6px 0px var(--color-ink)', transform: 'rotate(-2deg)' }}>
             <p style={{ fontFamily:'var(--font-sans)', fontSize:'0.85rem', fontWeight:900,
               letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--color-ink)', marginBottom:'0.5rem' }}>Who teaches</p>
@@ -358,7 +358,8 @@ export default function FacultyCarousel() {
 
       <style>{`
         @media(max-width:768px){
-          #faculty [style*="position:absolute"]{display:none;}
+          #faculty .faculty-ghost-text { display: none; }
+          .faculty-header { flex-direction: column; align-items: flex-start !important; gap: 1.5rem; }
         }
       `}</style>
     </section>

@@ -98,6 +98,10 @@ export default function CommunityStrip() {
           .community-grid a{border-bottom:4px solid var(--color-ink)!important;}
           .community-grid a:last-child{border-bottom:none!important;}
         }
+        @media(max-width:540px){
+          .community-grid{grid-template-columns:1fr!important;}
+          .community-grid a{border-right:none!important;}
+        }
       `}</style>
     </section>
   );
