@@ -42,10 +42,9 @@ export default function Navbar() {
   return (
     <header id="navbar" style={navStyle}>
       <div className="container" style={{ display: 'flex', alignItems: 'center', height: '4rem', gap: '2.5rem' }}>
-        {/* Wordmark */}
-        <a href="/" id="nav-logo" style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', textDecoration: 'none', flexShrink: 0, background: 'var(--color-ink)', padding: '0.2rem 0.8rem', transform: 'rotate(-2deg)' }}>
-          <span style={{ fontFamily: 'var(--font-serif)', fontSize: '1.5rem', fontWeight: 900, color: 'var(--color-yellow)', lineHeight: 1, textTransform: 'uppercase' }}>Strivers</span>
-          <span style={{ width: '8px', height: '8px', background: 'var(--color-accent)', marginTop: '4px', flexShrink: 0 }} />
+        {/* Logo */}
+        <a href="/" id="nav-logo" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', flexShrink: 0, transform: 'rotate(-2deg)' }}>
+          <img src="/logo.png" alt="Strivers Logo" style={{ height: '3rem', objectFit: 'contain' }} />
         </a>
 
         {/* Desktop nav */}
