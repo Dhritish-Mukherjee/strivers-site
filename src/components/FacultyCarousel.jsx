@@ -302,7 +302,7 @@ export default function FacultyCarousel() {
               </span>
             </h2>
           </div>
-          <div style={{ display:'flex', gap:'0.5rem' }}>
+          <div className="desktop-nav-buttons" style={{ display:'flex', gap:'0.5rem' }}>
             {[-1,1].map(dir => (
               <button key={dir} onClick={() => go(dir)}
                 aria-label={dir === -1 ? 'Previous educator' : 'Next educator'}
@@ -340,6 +340,20 @@ export default function FacultyCarousel() {
             <Card person={person} index={idx} isCenter={rp === 0} isExpanded={rp === 0 && expanded} onToggle={() => setExpanded(e => !e)} />
           </motion.div>
         ))}
+
+        {/* Mobile Nav Buttons Overlay */}
+        <div className="mobile-nav-buttons" style={{ position: 'absolute', top: '50%', left: '0.5rem', right: '0.5rem', transform: 'translateY(-50%)', display: 'none', justifyContent: 'space-between', zIndex: 20, pointerEvents: 'none' }}>
+           {[-1,1].map(dir => (
+              <button key={dir} onClick={() => go(dir)}
+                style={{ width:'3rem', height:'3rem', border:'3px solid var(--color-ink)',
+                  background:'var(--color-yellow)', color:'var(--color-ink)', cursor:'pointer',
+                  display:'flex', alignItems:'center', justifyContent:'center', boxShadow: '4px 4px 0px var(--color-ink)', pointerEvents: 'auto', padding: 0 }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                  {dir === -1 ? <path d="M15 18l-6-6 6-6"/> : <path d="M9 18l6-6-6-6"/>}
+                </svg>
+              </button>
+           ))}
+        </div>
       </div>
 
       {/* Dot indicators */}
@@ -359,6 +373,8 @@ export default function FacultyCarousel() {
       <style>{`
         @media(max-width:768px){
           #faculty .faculty-ghost-text { display: none; }
+          .faculty-header .desktop-nav-buttons { display: none !important; }
+          .mobile-nav-buttons { display: flex !important; }
           .faculty-header { flex-direction: column; align-items: flex-start !important; gap: 1.5rem; }
         }
       `}</style>

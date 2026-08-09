@@ -171,6 +171,7 @@ export default function CategoryGrid() {
               
               {/* Handwritten Marginalia */}
               <motion.span 
+                className="category-marginalia"
                 initial={{ opacity: 0, rotate: 0 }}
                 whileInView={{ opacity: 1, rotate: -4 }}
                 transition={{ delay: 0.5, duration: 0.4 }}
@@ -220,14 +221,14 @@ export default function CategoryGrid() {
           <div style={{ borderRight:'4px solid var(--color-ink)' }}>
             <Card cat={categories[5]} delay={0.08} />
           </div>
-          <div style={{ display:'flex', flexDirection:'column', alignItems:'center',
+          <div style={{ display:'flex', flexDirection:'column', alignItems:'flex-start',
             justifyContent:'center', padding:'2.5rem', gap:'1rem', background: 'var(--color-yellow)' }}>
             <p style={{ fontFamily:'var(--font-sans)', fontSize:'1.75rem', fontWeight: 900, textTransform: 'uppercase',
-              color:'var(--color-ink)', textAlign:'center', lineHeight:1.1, marginBottom:'0.25rem' }}>
+              color:'var(--color-ink)', textAlign:'left', lineHeight:1.1, marginBottom:'0.25rem' }}>
               Not sure where to start?
             </p>
             <p style={{ fontFamily:'var(--font-sans)', fontSize:'0.9rem', fontWeight: 600,
-              color:'var(--color-ink)', textAlign:'center', lineHeight:1.6, maxWidth:'32ch' }}>
+              color:'var(--color-ink)', textAlign:'left', lineHeight:1.6, maxWidth:'32ch' }}>
               Nothing here matches your vibe? Explore all, or talk to a counsellor.
             </p>
             <a href="#" id="cat-view-all-btn"
@@ -253,6 +254,7 @@ export default function CategoryGrid() {
           .cat-row{grid-template-columns:1fr!important;}
           .cat-row>div{border-right:none!important;border-bottom:4px solid var(--color-ink)!important;}
           .cat-row>div:last-child{border-bottom:none!important;}
+          .category-marginalia { right: 0 !important; bottom: -2rem !important; }
         }
       `}</style>
     </section>
