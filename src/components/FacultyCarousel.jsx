@@ -224,6 +224,7 @@ export default function FacultyCarousel() {
   const [hovered, setHovered] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const pausedRef = useRef(false);
+  const touchStart = useRef(null);
 
   useEffect(() => {
     pausedRef.current = hovered || expanded;
@@ -287,7 +288,7 @@ export default function FacultyCarousel() {
               Meet Your Educators
               
               {/* Handwritten Marginalia Annotation */}
-              <span style={{
+              <span className="faculty-marginalia" style={{
                 position: 'absolute',
                 top: '-1.2rem',
                 right: '-7rem',
@@ -322,12 +323,19 @@ export default function FacultyCarousel() {
       </div>
 
       {/* Coverflow track */}
-      <div
+      <div className="faculty-track"
         style={{ position:'relative', height: expanded ? '760px' : '560px', overflow:'hidden',
           display:'flex', alignItems:'center', justifyContent:'center',
           paddingBottom:'var(--section-py)', transition: 'height 0.48s cubic-bezier(0.16, 1, 0.3, 1)' }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
+        onTouchStart={e => { touchStart.current = e.touches[0].clientX; }}
+        onTouchEnd={e => {
+          if (touchStart.current === null) return;
+          const d = touchStart.current - e.changedTouches[0].clientX;
+          if (Math.abs(d) > 40) go(d > 0 ? 1 : -1);
+          touchStart.current = null;
+        }}
       >
         {visibleCards.map(({ person, idx, rp }) => (
           <motion.div
@@ -341,18 +349,15 @@ export default function FacultyCarousel() {
           </motion.div>
         ))}
 
-        {/* Mobile Nav Buttons Overlay */}
-        <div className="mobile-nav-buttons" style={{ position: 'absolute', top: '50%', left: '0.5rem', right: '0.5rem', transform: 'translateY(-50%)', display: 'none', justifyContent: 'space-between', zIndex: 20, pointerEvents: 'none' }}>
-           {[-1,1].map(dir => (
-              <button key={dir} onClick={() => go(dir)}
-                style={{ width:'3rem', height:'3rem', border:'3px solid var(--color-ink)',
-                  background:'var(--color-yellow)', color:'var(--color-ink)', cursor:'pointer',
-                  display:'flex', alignItems:'center', justifyContent:'center', boxShadow: '4px 4px 0px var(--color-ink)', pointerEvents: 'auto', padding: 0 }}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                  {dir === -1 ? <path d="M15 18l-6-6 6-6"/> : <path d="M9 18l6-6-6-6"/>}
-                </svg>
-              </button>
-           ))}
+        {/* Mobile Swipe Hint */}
+        <div className="mobile-swipe-hint" style={{ 
+          display: 'none', position: 'absolute', bottom: '1.5rem', left: '50%', transform: 'translateX(-50%)', 
+          fontFamily: 'var(--font-sans)', fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', 
+          color: 'var(--color-ink)', background: 'var(--color-yellow)', border: '2px solid var(--color-ink)', 
+          padding: '0.4rem 1rem', boxShadow: '4px 4px 0px var(--color-ink)', zIndex: 20, 
+          pointerEvents: 'none', alignItems: 'center', gap: '0.5rem', whiteSpace: 'nowrap'
+        }}>
+          ← Swipe to explore →
         </div>
       </div>
 
@@ -374,8 +379,9 @@ export default function FacultyCarousel() {
         @media(max-width:768px){
           #faculty .faculty-ghost-text { display: none; }
           .faculty-header .desktop-nav-buttons { display: none !important; }
-          .mobile-nav-buttons { display: flex !important; }
+          .mobile-swipe-hint { display: flex !important; }
           .faculty-header { flex-direction: column; align-items: flex-start !important; gap: 1.5rem; }
+          .faculty-marginalia { right: 0 !important; top: 110% !important; }
         }
       `}</style>
     </section>

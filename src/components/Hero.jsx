@@ -162,6 +162,7 @@ export default function Hero() {
               
               {/* Maximalist Sticker */}
               <motion.div
+                className="hero-sticker"
                 initial={{ opacity: 0, scale: 0.5, rotate: -20 }}
                 animate={{ opacity: 1, scale: 1, rotate: 12 }}
                 transition={{ delay: 0.9, type: 'spring', stiffness: 200, damping: 15 }}
@@ -319,7 +320,12 @@ export default function Hero() {
         </div>
       </div>
 
-      <style>{`@media(max-width:768px){.hero-grid{grid-template-columns:1fr!important;gap:2.5rem!important;}}`}</style>
+      <style>{`
+        @media(max-width:768px){
+          .hero-grid{grid-template-columns:1fr!important;gap:2.5rem!important;}
+          .hero-sticker{left: auto !important; right: 0 !important; top: -3rem !important;}
+        }
+      `}</style>
 
       {/* Video Modal */}
       {videoOpen && (
