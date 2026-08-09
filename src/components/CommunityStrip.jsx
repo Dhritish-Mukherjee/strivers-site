@@ -101,11 +101,17 @@ export default function CommunityStrip() {
           .community-grid{grid-template-columns:1fr 1fr!important;}
           .community-grid a:nth-child(2n){border-right:none!important;}
           .community-grid a{border-bottom:4px solid var(--color-ink)!important;}
-          .community-grid a:last-child{border-bottom:none!important;}
+          .community-grid a:nth-last-child(-n+2){border-bottom:none!important;}
         }
         @media(max-width:540px){
           .community-grid{grid-template-columns:1fr!important;}
           .community-grid a{border-right:none!important;}
+          .community-grid a:nth-last-child(2){border-bottom:4px solid var(--color-ink)!important;}
+        }
+        @media(max-width:1024px) and (min-width:769px) {
+          .community-grid a { padding: 1rem 0.5rem !important; gap: 0.5rem !important; }
+          .comm-text { font-size: 0.85rem !important; }
+          .comm-sub { font-size: 0.65rem !important; }
         }
       `}</style>
     </section>

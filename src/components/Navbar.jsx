@@ -43,8 +43,18 @@ export default function Navbar() {
     <header id="navbar" style={navStyle}>
       <div className="container" style={{ display: 'flex', alignItems: 'center', height: '4rem', gap: '2.5rem' }}>
         {/* Logo */}
-        <a href="/" id="nav-logo" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', flexShrink: 0, transform: 'rotate(-2deg)' }}>
-          <img src="/logo.png" alt="Strivers Logo" style={{ height: '3rem', objectFit: 'contain' }} />
+        <a href="/" id="nav-logo" style={{ 
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          textDecoration: 'none', flexShrink: 0, transform: 'rotate(-3deg)',
+          background: 'var(--color-yellow)', border: '3px solid var(--color-ink)',
+          boxShadow: '4px 4px 0px var(--color-ink)', padding: '0.4rem 0.8rem',
+          transition: 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s',
+          position: 'relative', zIndex: 10
+        }}
+        onMouseEnter={e => { e.currentTarget.style.transform = 'rotate(0deg) scale(1.05)'; e.currentTarget.style.boxShadow = '6px 6px 0px var(--color-ink)'; }}
+        onMouseLeave={e => { e.currentTarget.style.transform = 'rotate(-3deg)'; e.currentTarget.style.boxShadow = '4px 4px 0px var(--color-ink)'; }}
+        >
+          <img src="/logo.png" alt="Strivers Logo" style={{ height: '3.5rem', width: 'auto', objectFit: 'contain' }} />
         </a>
 
         {/* Desktop nav */}
