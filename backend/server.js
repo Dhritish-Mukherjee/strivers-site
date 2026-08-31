@@ -16,6 +16,16 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/strivers-
   process.exit(1);
 });
 
+// Security Headers Middleware (including HSTS, nosniff, xss protection, frame options)
+app.use((req, res, next) => {
+  res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  next();
+});
+
 // Middleware
 app.use(cors({
   origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
@@ -51,16 +61,22 @@ app.use(express.static(path.join(__dirname, '../frontend/dist'), {
   }
 }));
 
+// Route to serve the frontend homepage
+app.get('/', (req, res) => {
+  res.setHeader('Cache-Control', 'no-cache');
+  res.status(200).sendFile(path.resolve(__dirname, '../frontend/dist', 'index.html'));
+});
+
 // Explicit custom 404 route returning true 404 HTTP status
 app.get('/404', (req, res) => {
   res.status(404).sendFile(path.resolve(__dirname, '../frontend/dist', '404.html'));
 });
 
-// Catch-all route to serve the frontend's index.html for any other GET requests
+// Catch-all route for any unhandled GET request: return custom 404.html with HTTP status 404
 app.use((req, res, next) => {
   if (req.method === 'GET' && !req.path.startsWith('/api')) {
     res.setHeader('Cache-Control', 'no-cache');
-    return res.sendFile(path.resolve(__dirname, '../frontend/dist', 'index.html'));
+    return res.status(404).sendFile(path.resolve(__dirname, '../frontend/dist', '404.html'));
   }
   next();
 });
