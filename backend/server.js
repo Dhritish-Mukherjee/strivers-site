@@ -36,12 +36,12 @@ app.get('/api', (req, res) => {
 });
 
 // Serve static files from the React frontend app
-app.use(express.static(path.join(__dirname, '../dist')));
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
 // Catch-all route to serve the frontend's index.html for any other GET requests
 app.use((req, res, next) => {
   if (req.method === 'GET' && !req.path.startsWith('/api')) {
-    return res.sendFile(path.resolve(__dirname, '../dist', 'index.html'));
+    return res.sendFile(path.resolve(__dirname, '../frontend/dist', 'index.html'));
   }
   next();
 });
