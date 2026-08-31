@@ -127,7 +127,7 @@ function Card({ person, index, isCenter, isExpanded, onToggle }) {
           <span style={{
             display:'inline-block', fontFamily:'var(--font-sans)', fontSize:'0.62rem',
             fontWeight:800, letterSpacing:'0.08em', textTransform:'uppercase',
-            color:'var(--color-ink)', background:sc.color, color: '#fff', padding:'0.3rem 0.6rem',
+            background:sc.color, color: '#fff', padding:'0.3rem 0.6rem',
             border:`2px solid var(--color-ink)`, marginBottom: '1rem', boxShadow: '2px 2px 0px var(--color-ink)',
           }}>{person.subject}</span>
           

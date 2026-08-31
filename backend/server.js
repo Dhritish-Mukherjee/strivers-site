@@ -35,15 +35,38 @@ app.get('/api', (req, res) => {
   res.json({ message: 'Strivers Student API' });
 });
 
-// Serve static files from the React frontend app
-app.use(express.static(path.join(__dirname, '../frontend/dist')));
+// Serve static files from the React frontend app with caching headers
+app.use(express.static(path.join(__dirname, '../frontend/dist'), {
+  maxAge: '1d',
+  setHeaders: (res, filePath) => {
+    if (filePath.includes('/assets/')) {
+      // Hashed Vite assets can be cached immutably for 1 year
+      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    } else if (filePath.endsWith('.html')) {
+      // HTML entry point should always revalidate
+      res.setHeader('Cache-Control', 'no-cache');
+    } else if (filePath.endsWith('.xml') || filePath.endsWith('.txt')) {
+      res.setHeader('Cache-Control', 'public, max-age=3600');
+    }
+  }
+}));
 
 // Catch-all route to serve the frontend's index.html for any other GET requests
 app.use((req, res, next) => {
   if (req.method === 'GET' && !req.path.startsWith('/api')) {
+    res.setHeader('Cache-Control', 'no-cache');
     return res.sendFile(path.resolve(__dirname, '../frontend/dist', 'index.html'));
   }
   next();
+});
+
+// 404 handler for unmatched API routes
+app.use('/api', (req, res) => {
+  res.status(404).json({
+    status: 'error',
+    statusCode: 404,
+    message: `API route '${req.originalUrl}' not found`
+  });
 });
 
 // Error handling middleware

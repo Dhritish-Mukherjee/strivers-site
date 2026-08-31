@@ -71,7 +71,7 @@ export default function Footer() {
         }}>
           {/* Brand col */}
           <div>
-            <div style={{ display:'flex', alignItems:'center', gap:'0.375rem', marginBottom:'1.5rem', background: 'var(--color-yellow)', padding: '0.5rem 1rem', display: 'inline-flex', border: '3px solid var(--color-ink)' }}>
+            <div style={{ alignItems:'center', gap:'0.375rem', marginBottom:'1.5rem', background: 'var(--color-yellow)', padding: '0.5rem 1rem', display: 'inline-flex', border: '3px solid var(--color-ink)' }}>
               <span style={{ fontFamily:'var(--font-sans)', fontSize:'1.75rem', fontWeight:900, textTransform: 'uppercase', color: 'var(--color-ink)' }}>Strivers</span>
               <span style={{ width:'8px', height:'8px', background:'var(--color-accent)', marginTop:'4px' }} />
             </div>
