@@ -3,9 +3,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function LoginModal() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isSignUp, setIsSignUp] = useState(false);
 
   useEffect(() => {
-    const handleOpen = () => setIsOpen(true);
+    const handleOpen = () => {
+      setIsOpen(true);
+      setIsSignUp(false);
+    };
     window.addEventListener('open-login-modal', handleOpen);
     return () => window.removeEventListener('open-login-modal', handleOpen);
   }, []);
@@ -108,7 +112,11 @@ export default function LoginModal() {
               marginBottom: '0.5rem',
               lineHeight: 1.1,
             }}>
-              Join the <br/><span style={{ color: 'var(--color-accent, #c1440e)' }}>Revolution</span>
+              {isSignUp ? (
+                <>Create <br/><span style={{ color: 'var(--color-accent, #c1440e)' }}>Account</span></>
+              ) : (
+                <>Join the <br/><span style={{ color: 'var(--color-accent, #c1440e)' }}>Revolution</span></>
+              )}
             </h2>
             <p style={{
               fontFamily: 'var(--font-sans, "Inter", sans-serif)',
@@ -117,7 +125,7 @@ export default function LoginModal() {
               marginBottom: '2rem',
               fontSize: '0.95rem'
             }}>
-              Login to access exclusive courses.
+              {isSignUp ? 'Sign up to get started.' : 'Login to access exclusive courses.'}
             </p>
 
             <form onSubmit={e => e.preventDefault()} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
@@ -177,6 +185,65 @@ export default function LoginModal() {
                 />
               </div>
 
+              {isSignUp && (
+                <div>
+                  <label style={{ display: 'block', fontWeight: 800, marginBottom: '0.5rem', textTransform: 'uppercase', fontSize: '0.85rem' }}>Phone Number</label>
+                  <input 
+                    type="tel" 
+                    placeholder="+91 9999999999"
+                    required
+                    style={{
+                      width: '100%',
+                      padding: '0.75rem',
+                      fontFamily: 'var(--font-sans)',
+                      fontSize: '1rem',
+                      background: 'var(--color-paper, #f4f0e6)',
+                      border: '3px solid var(--color-ink, #1a1a1a)',
+                      boxShadow: '4px 4px 0px var(--color-ink, #1a1a1a)',
+                      outline: 'none',
+                      transition: 'box-shadow 0.2s, transform 0.2s',
+                      boxSizing: 'border-box'
+                    }}
+                    onFocus={e => {
+                      e.currentTarget.style.boxShadow = '6px 6px 0px var(--color-accent, #c1440e)';
+                      e.currentTarget.style.transform = 'translate(-2px, -2px)';
+                    }}
+                    onBlur={e => {
+                      e.currentTarget.style.boxShadow = '4px 4px 0px var(--color-ink, #1a1a1a)';
+                      e.currentTarget.style.transform = 'translate(0, 0)';
+                    }}
+                  />
+                </div>
+              )}
+
+              {isSignUp && (
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem', marginTop: '0.5rem' }}>
+                  <input 
+                    type="checkbox" 
+                    id="marketing-opt-in"
+                    required
+                    style={{
+                      marginTop: '0.25rem',
+                      width: '1.25rem',
+                      height: '1.25rem',
+                      accentColor: 'var(--color-accent, #c1440e)',
+                      cursor: 'pointer',
+                      border: '2px solid var(--color-ink)'
+                    }}
+                  />
+                  <label htmlFor="marketing-opt-in" style={{ 
+                    fontFamily: 'var(--font-sans)', 
+                    fontSize: '0.85rem', 
+                    fontWeight: 700,
+                    lineHeight: 1.4,
+                    color: 'var(--color-ink, #1a1a1a)',
+                    cursor: 'pointer'
+                  }}>
+                    I agree to receive advertisements, offers, and promotional emails from Strivers.
+                  </label>
+                </div>
+              )}
+
               <button
                 type="submit"
                 style={{
@@ -206,8 +273,35 @@ export default function LoginModal() {
                   e.currentTarget.style.boxShadow = '6px 6px 0px var(--color-ink)';
                 }}
               >
-                Sign In
+                {isSignUp ? 'Create Account' : 'Sign In'}
               </button>
+
+              <div style={{ 
+                marginTop: '1rem', 
+                textAlign: 'center',
+                fontFamily: 'var(--font-sans)',
+                fontWeight: 600,
+                fontSize: '0.9rem'
+              }}>
+                {isSignUp ? "Already have an account? " : "Don't have an account? "}
+                <button
+                  type="button"
+                  onClick={() => setIsSignUp(!isSignUp)}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: 'var(--color-accent, #c1440e)',
+                    fontWeight: 800,
+                    textDecoration: 'underline',
+                    cursor: 'pointer',
+                    padding: 0,
+                    fontFamily: 'inherit',
+                    fontSize: 'inherit'
+                  }}
+                >
+                  {isSignUp ? 'Sign In' : 'Create Account'}
+                </button>
+              </div>
             </form>
           </motion.div>
         </div>
