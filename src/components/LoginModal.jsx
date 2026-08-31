@@ -8,6 +8,7 @@ export default function LoginModal() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
+  const [countryCode, setCountryCode] = useState('+91');
   const [marketingOptIn, setMarketingOptIn] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -30,7 +31,7 @@ export default function LoginModal() {
     try {
       const endpoint = isSignUp ? '/api/auth/register' : '/api/auth/login';
       const body = isSignUp 
-        ? { email, password, phone, marketingOptIn }
+        ? { email, password, phone: `${countryCode}${phone}`, marketingOptIn }
         : { email, password };
 
       const res = await fetch(endpoint, {
@@ -239,33 +240,66 @@ export default function LoginModal() {
               {isSignUp && (
                 <div>
                   <label style={{ display: 'block', fontWeight: 800, marginBottom: '0.5rem', textTransform: 'uppercase', fontSize: '0.85rem' }}>Phone Number</label>
-                  <input 
-                    type="tel" 
-                    placeholder="+91 9999999999"
-                    value={phone}
-                    onChange={e => setPhone(e.target.value)}
-                    required
-                    style={{
-                      width: '100%',
-                      padding: '0.75rem',
-                      fontFamily: 'var(--font-sans)',
-                      fontSize: '1rem',
-                      background: 'var(--color-paper, #f4f0e6)',
-                      border: '3px solid var(--color-ink, #1a1a1a)',
-                      boxShadow: '4px 4px 0px var(--color-ink, #1a1a1a)',
-                      outline: 'none',
-                      transition: 'box-shadow 0.2s, transform 0.2s',
-                      boxSizing: 'border-box'
-                    }}
-                    onFocus={e => {
-                      e.currentTarget.style.boxShadow = '6px 6px 0px var(--color-accent, #c1440e)';
-                      e.currentTarget.style.transform = 'translate(-2px, -2px)';
-                    }}
-                    onBlur={e => {
-                      e.currentTarget.style.boxShadow = '4px 4px 0px var(--color-ink, #1a1a1a)';
-                      e.currentTarget.style.transform = 'translate(0, 0)';
-                    }}
-                  />
+                  <div style={{ display: 'flex', gap: '0.75rem' }}>
+                    <select
+                      value={countryCode}
+                      onChange={e => setCountryCode(e.target.value)}
+                      style={{
+                        padding: '0.75rem',
+                        fontFamily: 'var(--font-sans)',
+                        fontSize: '1rem',
+                        background: 'var(--color-paper, #f4f0e6)',
+                        border: '3px solid var(--color-ink, #1a1a1a)',
+                        boxShadow: '4px 4px 0px var(--color-ink, #1a1a1a)',
+                        outline: 'none',
+                        transition: 'box-shadow 0.2s, transform 0.2s',
+                        cursor: 'pointer',
+                        width: '110px',
+                      }}
+                      onFocus={e => {
+                        e.currentTarget.style.boxShadow = '6px 6px 0px var(--color-accent, #c1440e)';
+                        e.currentTarget.style.transform = 'translate(-2px, -2px)';
+                      }}
+                      onBlur={e => {
+                        e.currentTarget.style.boxShadow = '4px 4px 0px var(--color-ink, #1a1a1a)';
+                        e.currentTarget.style.transform = 'translate(0, 0)';
+                      }}
+                    >
+                      <option value="+91">+91 (IN)</option>
+                      <option value="+1">+1 (US)</option>
+                      <option value="+44">+44 (UK)</option>
+                      <option value="+61">+61 (AU)</option>
+                      <option value="+971">+971 (AE)</option>
+                    </select>
+                    <input 
+                      type="tel" 
+                      placeholder="9999999999"
+                      value={phone}
+                      onChange={e => setPhone(e.target.value)}
+                      required
+                      style={{
+                        flex: 1,
+                        padding: '0.75rem',
+                        fontFamily: 'var(--font-sans)',
+                        fontSize: '1rem',
+                        background: 'var(--color-paper, #f4f0e6)',
+                        border: '3px solid var(--color-ink, #1a1a1a)',
+                        boxShadow: '4px 4px 0px var(--color-ink, #1a1a1a)',
+                        outline: 'none',
+                        transition: 'box-shadow 0.2s, transform 0.2s',
+                        boxSizing: 'border-box',
+                        minWidth: 0,
+                      }}
+                      onFocus={e => {
+                        e.currentTarget.style.boxShadow = '6px 6px 0px var(--color-accent, #c1440e)';
+                        e.currentTarget.style.transform = 'translate(-2px, -2px)';
+                      }}
+                      onBlur={e => {
+                        e.currentTarget.style.boxShadow = '4px 4px 0px var(--color-ink, #1a1a1a)';
+                        e.currentTarget.style.transform = 'translate(0, 0)';
+                      }}
+                    />
+                  </div>
                 </div>
               )}
 
