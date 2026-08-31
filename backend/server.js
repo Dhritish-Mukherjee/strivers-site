@@ -51,6 +51,11 @@ app.use(express.static(path.join(__dirname, '../frontend/dist'), {
   }
 }));
 
+// Explicit custom 404 route returning true 404 HTTP status
+app.get('/404', (req, res) => {
+  res.status(404).sendFile(path.resolve(__dirname, '../frontend/dist', '404.html'));
+});
+
 // Catch-all route to serve the frontend's index.html for any other GET requests
 app.use((req, res, next) => {
   if (req.method === 'GET' && !req.path.startsWith('/api')) {

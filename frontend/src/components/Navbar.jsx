@@ -69,7 +69,10 @@ export default function Navbar() {
         onMouseEnter={e => { e.currentTarget.style.transform = 'rotate(0deg) scale(1.05)'; e.currentTarget.style.boxShadow = '6px 6px 0px var(--color-ink)'; }}
         onMouseLeave={e => { e.currentTarget.style.transform = 'rotate(-3deg)'; e.currentTarget.style.boxShadow = '4px 4px 0px var(--color-ink)'; }}
         >
-          <img src="/logo.png" alt="Strivers Logo" style={{ height: '3.5rem', width: 'auto', objectFit: 'contain' }} />
+          <picture>
+            <source srcSet="/logo.webp" type="image/webp" />
+            <img src="/logo.png" alt="Strivers EdTech Logo — Prepare Smarter, Score Higher" width="160" height="56" loading="eager" decoding="async" style={{ height: '3.5rem', width: 'auto', objectFit: 'contain', display: 'block' }} />
+          </picture>
         </a>
 
         {/* Desktop nav */}

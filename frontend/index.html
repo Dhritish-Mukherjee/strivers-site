@@ -109,6 +109,14 @@
       ]
     }
     </script>
+    <!-- Preconnect & Non-blocking Asynchronous Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700;800;900&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700;800;900&display=swap" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700;800;900&display=swap" />
+    </noscript>
   </head>
   <body>
     <div id="root">
@@ -116,7 +124,10 @@
       <header style="padding: 1.5rem; border-bottom: 2px solid #111;">
         <nav style="display: flex; align-items: center; justify-content: space-between; max-width: 1120px; margin: 0 auto;">
           <a href="https://strivers.co.in/" style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: #111;">
-            <img src="/logo.png" alt="Strivers EdTech Logo — Prepare Smarter, Score Higher" width="160" height="45" style="object-fit: contain;" />
+            <picture>
+              <source srcset="/logo.webp" type="image/webp" />
+              <img src="/logo.png" alt="Strivers EdTech Logo — Prepare Smarter, Score Higher" width="160" height="45" style="object-fit: contain;" />
+            </picture>
             <span style="font-size: 1.5rem; font-weight: 900; text-transform: uppercase;">Strivers</span>
           </a>
           <div style="display: flex; gap: 1rem;">
