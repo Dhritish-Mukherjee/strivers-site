@@ -4,15 +4,55 @@ import { motion, AnimatePresence } from 'framer-motion';
 export default function LoginModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
+  
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [phone, setPhone] = useState('');
+  const [marketingOptIn, setMarketingOptIn] = useState(false);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const handleOpen = () => {
       setIsOpen(true);
       setIsSignUp(false);
+      setError('');
     };
     window.addEventListener('open-login-modal', handleOpen);
     return () => window.removeEventListener('open-login-modal', handleOpen);
   }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+
+    try {
+      const endpoint = isSignUp ? '/api/auth/register' : '/api/auth/login';
+      const body = isSignUp 
+        ? { email, password, phone, marketingOptIn }
+        : { email, password };
+
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.message || 'Something went wrong');
+      }
+
+      localStorage.setItem('token', data.token);
+      setIsOpen(false);
+      alert(isSignUp ? 'Account created successfully!' : 'Logged in successfully!');
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // Prevent scroll when modal is open
   useEffect(() => {
@@ -128,12 +168,20 @@ export default function LoginModal() {
               {isSignUp ? 'Sign up to get started.' : 'Login to access exclusive courses.'}
             </p>
 
-            <form onSubmit={e => e.preventDefault()} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              {error && (
+                <div style={{ color: 'var(--color-accent, #c1440e)', fontWeight: 800, fontSize: '0.9rem', marginBottom: '-0.5rem' }}>
+                  {error}
+                </div>
+              )}
               <div>
                 <label style={{ display: 'block', fontWeight: 800, marginBottom: '0.5rem', textTransform: 'uppercase', fontSize: '0.85rem' }}>Email</label>
                 <input 
                   type="email" 
                   placeholder="striver@example.com"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  required
                   style={{
                     width: '100%',
                     padding: '0.75rem',
@@ -162,6 +210,9 @@ export default function LoginModal() {
                 <input 
                   type="password" 
                   placeholder="••••••••"
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  required
                   style={{
                     width: '100%',
                     padding: '0.75rem',
@@ -191,6 +242,8 @@ export default function LoginModal() {
                   <input 
                     type="tel" 
                     placeholder="+91 9999999999"
+                    value={phone}
+                    onChange={e => setPhone(e.target.value)}
                     required
                     style={{
                       width: '100%',
@@ -221,6 +274,8 @@ export default function LoginModal() {
                   <input 
                     type="checkbox" 
                     id="marketing-opt-in"
+                    checked={marketingOptIn}
+                    onChange={e => setMarketingOptIn(e.target.checked)}
                     required
                     style={{
                       marginTop: '0.25rem',
@@ -246,6 +301,7 @@ export default function LoginModal() {
 
               <button
                 type="submit"
+                disabled={loading}
                 style={{
                   marginTop: '1rem',
                   padding: '1rem',
@@ -257,23 +313,27 @@ export default function LoginModal() {
                   textTransform: 'uppercase',
                   border: '3px solid var(--color-ink, #1a1a1a)',
                   boxShadow: '6px 6px 0px var(--color-ink, #1a1a1a)',
-                  cursor: 'pointer',
+                  cursor: loading ? 'not-allowed' : 'pointer',
+                  opacity: loading ? 0.7 : 1,
                   transition: 'transform 0.1s, box-shadow 0.1s',
                 }}
                 onMouseDown={e => {
+                  if (loading) return;
                   e.currentTarget.style.transform = 'translate(6px, 6px)';
                   e.currentTarget.style.boxShadow = '0px 0px 0px var(--color-ink)';
                 }}
                 onMouseUp={e => {
+                  if (loading) return;
                   e.currentTarget.style.transform = 'translate(0px, 0px)';
                   e.currentTarget.style.boxShadow = '6px 6px 0px var(--color-ink)';
                 }}
                 onMouseLeave={e => {
+                  if (loading) return;
                   e.currentTarget.style.transform = 'translate(0px, 0px)';
                   e.currentTarget.style.boxShadow = '6px 6px 0px var(--color-ink)';
                 }}
               >
-                {isSignUp ? 'Create Account' : 'Sign In'}
+                {loading ? 'Processing...' : (isSignUp ? 'Create Account' : 'Sign In')}
               </button>
 
               <div style={{ 
