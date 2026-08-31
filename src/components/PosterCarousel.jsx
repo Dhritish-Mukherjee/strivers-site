@@ -136,6 +136,12 @@ export default function PosterCarousel() {
                   {slide.subline}
                 </p>
                 <a href={slide.cta.href}
+                  onClick={(e) => {
+                    if (slide.cta.label === 'Enroll Now' || slide.cta.label === 'Reserve Your Seat' || slide.cta.label === 'Join Free') {
+                      e.preventDefault();
+                      window.dispatchEvent(new Event('open-login-modal'));
+                    }
+                  }}
                   style={{ display:'inline-block', fontFamily:'var(--font-sans)',
                     fontSize:'1rem', fontWeight:900, textTransform: 'uppercase',
                     color:'#fff', background:slide.accent, padding:'0.8rem 1.8rem',

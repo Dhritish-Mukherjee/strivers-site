@@ -12,6 +12,7 @@ import TestimonialBanner from './components/TestimonialBanner.jsx';
 import Footer from './components/Footer.jsx';
 import NotFound from './pages/NotFound.jsx';
 import ParticleNetwork from './components/ParticleNetwork.jsx';
+import LoginModal from './components/LoginModal.jsx';
 
 const TornEdge = () => (
   <svg width="100%" height="16" viewBox="0 0 100 16" preserveAspectRatio="none" style={{ display:'block', fill:'var(--color-paper)', filter: 'drop-shadow(0px 2px 2px rgba(0,0,0,0.06))', position: 'relative', zIndex: 10, marginTop: '-16px' }}>
@@ -45,6 +46,7 @@ function HomePage() {
 export default function App() {
   return (
     <BrowserRouter>
+      <LoginModal />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="*" element={<NotFound />} />

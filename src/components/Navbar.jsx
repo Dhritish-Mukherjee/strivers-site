@@ -143,7 +143,7 @@ export default function Navbar() {
 
         {/* Right side */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginLeft: 'auto', flexShrink: 0 }}>
-          <Button href="#" variant="primary" id="nav-enroll-btn" style={{
+          <Button onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event('open-login-modal')); }} variant="primary" id="nav-enroll-btn" style={{
             fontSize: '0.9rem', padding: '0.6rem 1.2rem', border: '2px solid var(--color-ink)',
             boxShadow: '4px 4px 0px var(--color-ink)', transform: 'translateY(-2px)'
           }}>Enroll Now</Button>
@@ -200,7 +200,7 @@ export default function Navbar() {
                 </a>
               ))}
               <div style={{ marginTop: '1.25rem' }}>
-                <Button href="#" variant="primary" id="mob-enroll-btn">Enroll Now</Button>
+                <Button onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event('open-login-modal')); setMenuOpen(false); }} variant="primary" id="mob-enroll-btn">Enroll Now</Button>
               </div>
             </div>
           </motion.div>

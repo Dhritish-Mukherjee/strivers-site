@@ -96,11 +96,14 @@ export default function MobileMenu({ isOpen, onClose, navLinks }) {
             {/* CTA */}
             <div className="px-8 py-8 border-t border-[var(--color-border)]">
               <Button
-                href="mailto:enroll@striver.in"
                 variant="primary"
                 className="w-full justify-center"
                 id="mobile-enroll-btn"
-                onClick={onClose}
+                onClick={(e) => {
+                  e.preventDefault();
+                  onClose();
+                  window.dispatchEvent(new Event('open-login-modal'));
+                }}
               >
                 Enroll Now
               </Button>
