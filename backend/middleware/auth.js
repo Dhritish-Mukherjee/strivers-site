@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+const Student = require('../models/Student');
 
 // Verify JWT token and attach user to request
 const auth = async (req, res, next) => {
@@ -14,13 +14,13 @@ const auth = async (req, res, next) => {
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    const user = await User.findById(decoded.userId).select('-password');
+    const student = await Student.findById(decoded.userId).select('-password');
 
-    if (!user) {
-      return res.status(401).json({ message: 'User not found.' });
+    if (!student) {
+      return res.status(401).json({ message: 'Student not found.' });
     }
 
-    req.user = user;
+    req.user = student;
     req.token = token;
     next();
   } catch (error) {
@@ -34,7 +34,7 @@ const auth = async (req, res, next) => {
   }
 };
 
-// Optional auth - doesn't fail if no token, butreq.user if valid token exists
+// Optional auth - doesn't fail if no token, but req.user if valid token exists
 const optionalAuth = async (req, res, next) => {
   try {
     const authHeader = req.header('Authorization');
@@ -42,9 +42,9 @@ const optionalAuth = async (req, res, next) => {
     if (authHeader && authHeader.startsWith('Bearer ')) {
       const token = authHeader.replace('Bearer ', '');
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      const user = await User.findById(decoded.userId).select('-password');
-      if (user) {
-        req.user = user;
+      const student = await Student.findById(decoded.userId).select('-password');
+      if (student) {
+        req.user = student;
         req.token = token;
       }
     }

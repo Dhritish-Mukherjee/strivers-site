@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const User = require('../models/User');
 const Student = require('../models/Student');
 
 // Generate JWT token
@@ -82,104 +81,6 @@ const studentLogin = async (req, res) => {
   } catch (error) {
     console.error('Login error:', error);
     res.status(500).json({ message: 'Login failed.' });
-  }
-};
-
-// Get current user
-const getCurrentUser = async (req, res) => {
-  try {
-    res.json({ user: req.user });
-  } catch (error) {
-    console.error('Get current user error:', error);
-    res.status(500).json({ message: 'Failed to get user data.' });
-  }
-};
-
-// Get all employees (admin only)
-const getEmployees = async (req, res) => {
-  try {
-    const employees = await User.find({ isTeamMember: true })
-      .select('-password')
-      .sort({ createdAt: -1 });
-
-    res.json({ employees });
-  } catch (error) {
-    console.error('Get employees error:', error);
-    res.status(500).json({ message: 'Failed to get employees.' });
-  }
-};
-
-// Get all users (for assigning tasks)
-const getAllUsers = async (req, res) => {
-  try {
-    const users = await User.find({ isTeamMember: true })
-      .select('-password')
-      .sort({ name: 1 });
-
-    res.json({ users });
-  } catch (error) {
-    console.error('Get all users error:', error);
-    res.status(500).json({ message: 'Failed to get users.' });
-  }
-};
-
-// Get user by ID (admin only)
-const getUserById = async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id).select('-password');
-
-    if (!user) {
-      return res.status(404).json({ message: 'User not found.' });
-    }
-
-    res.json({ user });
-  } catch (error) {
-    console.error('Get user error:', error);
-    res.status(500).json({ message: 'Failed to get user.' });
-  }
-};
-
-// Update current user profile
-const updateProfile = async (req, res) => {
-  try {
-    const { profilePicture } = req.body;
-    
-    // Only update allowed fields
-    if (profilePicture !== undefined) {
-      req.user.profilePicture = profilePicture;
-    }
-    
-    await req.user.save();
-    
-    res.json({
-      message: 'Profile updated successfully',
-      user: req.user
-    });
-  } catch (error) {
-    console.error('Update profile error:', error);
-    res.status(500).json({ message: 'Failed to update profile.' });
-  }
-};
-
-// Delete user (admin only)
-const deleteEmployee = async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id);
-
-    if (!user) {
-      return res.status(404).json({ message: 'User not found.' });
-    }
-
-    if (user.role === 'admin') {
-      return res.status(403).json({ message: 'Cannot delete an admin.' });
-    }
-
-    await User.findByIdAndDelete(req.params.id);
-
-    res.json({ message: 'Employee deleted successfully.' });
-  } catch (error) {
-    console.error('Delete employee error:', error);
-    res.status(500).json({ message: 'Failed to delete employee.' });
   }
 };
 
