@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const Student = require('../models/Student');
+const { sendTelegramNotification } = require('../utils/telegram');
 
 // Generate JWT token
 const generateToken = (userId) => {
@@ -34,6 +35,9 @@ const studentRegister = async (req, res) => {
     const studentResponse = student.toObject();
     delete studentResponse.password;
     
+    // Send Telegram Notification in the background
+    sendTelegramNotification(studentResponse);
+
     const token = generateToken(student._id);
 
     res.status(201).json({
