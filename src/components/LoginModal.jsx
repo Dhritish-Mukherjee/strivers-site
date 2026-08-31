@@ -46,6 +46,8 @@ export default function LoginModal() {
       }
 
       localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
+      window.dispatchEvent(new Event('auth-change'));
       setIsOpen(false);
       alert(isSignUp ? 'Account created successfully!' : 'Logged in successfully!');
     } catch (err) {

@@ -84,7 +84,38 @@ const studentLogin = async (req, res) => {
   }
 };
 
+// Update Profile
+const updateProfile = async (req, res) => {
+  try {
+    const { name, college, graduationYear } = req.body;
+    
+    // req.user is set by auth middleware
+    const student = await Student.findById(req.user._id);
+    if (!student) {
+      return res.status(404).json({ message: 'Student not found.' });
+    }
+
+    if (name) student.name = name;
+    if (college) student.college = college;
+    if (graduationYear) student.graduationYear = graduationYear;
+
+    await student.save();
+
+    const studentResponse = student.toObject();
+    delete studentResponse.password;
+
+    res.json({
+      message: 'Profile updated successfully',
+      user: studentResponse
+    });
+  } catch (error) {
+    console.error('Update profile error:', error);
+    res.status(500).json({ message: 'Failed to update profile.' });
+  }
+};
+
 module.exports = {
   studentRegister,
-  studentLogin
+  studentLogin,
+  updateProfile
 };

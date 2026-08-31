@@ -20,6 +20,17 @@ const studentSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
+  name: {
+    type: String,
+    trim: true
+  },
+  college: {
+    type: String,
+    trim: true
+  },
+  graduationYear: {
+    type: Number
+  },
   marketingOptIn: {
     type: Boolean,
     default: false
