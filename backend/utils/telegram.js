@@ -41,6 +41,8 @@ const sendTelegramNotification = async (student) => {
       if (!response.ok) {
         const errorData = await response.json();
         console.error(`Failed to send Telegram notification to ${chatId}:`, errorData);
+      } else {
+        console.log(`✅ Telegram notification successfully sent to ${chatId}`);
       }
     });
 
