@@ -12,7 +12,7 @@ const generateToken = (userId) => {
 // Student Register
 const studentRegister = async (req, res) => {
   try {
-    const { email, password, phone, marketingOptIn } = req.body;
+    const { email, password, phone, marketingOptIn, name, college, graduationYear } = req.body;
 
     if (!email || !password) {
       return res.status(400).json({ message: 'Email and password are required.' });
@@ -27,6 +27,9 @@ const studentRegister = async (req, res) => {
       email: email.toLowerCase().trim(),
       password,
       phone: phone ? phone.trim() : undefined,
+      name: name ? name.trim() : undefined,
+      college: college ? college.trim() : undefined,
+      graduationYear,
       marketingOptIn: marketingOptIn === true || marketingOptIn === 'true'
     });
 

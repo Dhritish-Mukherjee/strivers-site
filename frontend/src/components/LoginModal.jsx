@@ -9,14 +9,19 @@ export default function LoginModal() {
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
   const [countryCode, setCountryCode] = useState('+91');
+  const [name, setName] = useState('');
+  const [college, setCollege] = useState('');
+  const [graduationYear, setGraduationYear] = useState('');
   const [marketingOptIn, setMarketingOptIn] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [step, setStep] = useState(1);
 
   useEffect(() => {
     const handleOpen = () => {
       setIsOpen(true);
       setIsSignUp(false);
+      setStep(1);
       setError('');
     };
     window.addEventListener('open-login-modal', handleOpen);
@@ -25,13 +30,18 @@ export default function LoginModal() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isSignUp && step === 1) {
+      setStep(2);
+      return;
+    }
+
     setError('');
     setLoading(true);
 
     try {
       const endpoint = isSignUp ? '/api/auth/register' : '/api/auth/login';
       const body = isSignUp 
-        ? { email, password, phone: `${countryCode}${phone}`, marketingOptIn }
+        ? { email, password, phone: `${countryCode}${phone}`, marketingOptIn, name, college, graduationYear }
         : { email, password };
 
       const res = await fetch(endpoint, {
@@ -177,110 +187,19 @@ export default function LoginModal() {
                   {error}
                 </div>
               )}
-              <div>
-                <label style={{ display: 'block', fontWeight: 800, marginBottom: '0.5rem', textTransform: 'uppercase', fontSize: '0.85rem' }}>Email</label>
-                <input 
-                  type="email" 
-                  placeholder="striver@example.com"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                  required
-                  style={{
-                    width: '100%',
-                    padding: '0.75rem',
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: '1rem',
-                    background: 'var(--color-paper, #f4f0e6)',
-                    border: '3px solid var(--color-ink, #1a1a1a)',
-                    boxShadow: '4px 4px 0px var(--color-ink, #1a1a1a)',
-                    outline: 'none',
-                    transition: 'box-shadow 0.2s, transform 0.2s',
-                    boxSizing: 'border-box'
-                  }}
-                  onFocus={e => {
-                    e.currentTarget.style.boxShadow = '6px 6px 0px var(--color-accent, #c1440e)';
-                    e.currentTarget.style.transform = 'translate(-2px, -2px)';
-                  }}
-                  onBlur={e => {
-                    e.currentTarget.style.boxShadow = '4px 4px 0px var(--color-ink, #1a1a1a)';
-                    e.currentTarget.style.transform = 'translate(0, 0)';
-                  }}
-                />
-              </div>
-
-              <div>
-                <label style={{ display: 'block', fontWeight: 800, marginBottom: '0.5rem', textTransform: 'uppercase', fontSize: '0.85rem' }}>Password</label>
-                <input 
-                  type="password" 
-                  placeholder="••••••••"
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
-                  required
-                  style={{
-                    width: '100%',
-                    padding: '0.75rem',
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: '1rem',
-                    background: 'var(--color-paper, #f4f0e6)',
-                    border: '3px solid var(--color-ink, #1a1a1a)',
-                    boxShadow: '4px 4px 0px var(--color-ink, #1a1a1a)',
-                    outline: 'none',
-                    transition: 'box-shadow 0.2s, transform 0.2s',
-                    boxSizing: 'border-box'
-                  }}
-                  onFocus={e => {
-                    e.currentTarget.style.boxShadow = '6px 6px 0px var(--color-accent, #c1440e)';
-                    e.currentTarget.style.transform = 'translate(-2px, -2px)';
-                  }}
-                  onBlur={e => {
-                    e.currentTarget.style.boxShadow = '4px 4px 0px var(--color-ink, #1a1a1a)';
-                    e.currentTarget.style.transform = 'translate(0, 0)';
-                  }}
-                />
-              </div>
-
-              {isSignUp && (
-                <div>
-                  <label style={{ display: 'block', fontWeight: 800, marginBottom: '0.5rem', textTransform: 'uppercase', fontSize: '0.85rem' }}>Phone Number</label>
-                  <div style={{ display: 'flex', gap: '0.75rem' }}>
-                    <select
-                      value={countryCode}
-                      onChange={e => setCountryCode(e.target.value)}
-                      style={{
-                        padding: '0.75rem',
-                        fontFamily: 'var(--font-sans)',
-                        fontSize: '1rem',
-                        background: 'var(--color-paper, #f4f0e6)',
-                        border: '3px solid var(--color-ink, #1a1a1a)',
-                        boxShadow: '4px 4px 0px var(--color-ink, #1a1a1a)',
-                        outline: 'none',
-                        transition: 'box-shadow 0.2s, transform 0.2s',
-                        cursor: 'pointer',
-                        width: '110px',
-                      }}
-                      onFocus={e => {
-                        e.currentTarget.style.boxShadow = '6px 6px 0px var(--color-accent, #c1440e)';
-                        e.currentTarget.style.transform = 'translate(-2px, -2px)';
-                      }}
-                      onBlur={e => {
-                        e.currentTarget.style.boxShadow = '4px 4px 0px var(--color-ink, #1a1a1a)';
-                        e.currentTarget.style.transform = 'translate(0, 0)';
-                      }}
-                    >
-                      <option value="+91">+91 (IN)</option>
-                      <option value="+1">+1 (US)</option>
-                      <option value="+44">+44 (UK)</option>
-                      <option value="+61">+61 (AU)</option>
-                      <option value="+971">+971 (AE)</option>
-                    </select>
+              
+              {(!isSignUp || step === 1) && (
+                <>
+                  <div>
+                    <label style={{ display: 'block', fontWeight: 800, marginBottom: '0.5rem', textTransform: 'uppercase', fontSize: '0.85rem' }}>Email</label>
                     <input 
-                      type="tel" 
-                      placeholder="9999999999"
-                      value={phone}
-                      onChange={e => setPhone(e.target.value)}
+                      type="email" 
+                      placeholder="striver@example.com"
+                      value={email}
+                      onChange={e => setEmail(e.target.value)}
                       required
                       style={{
-                        flex: 1,
+                        width: '100%',
                         padding: '0.75rem',
                         fontFamily: 'var(--font-sans)',
                         fontSize: '1rem',
@@ -289,8 +208,7 @@ export default function LoginModal() {
                         boxShadow: '4px 4px 0px var(--color-ink, #1a1a1a)',
                         outline: 'none',
                         transition: 'box-shadow 0.2s, transform 0.2s',
-                        boxSizing: 'border-box',
-                        minWidth: 0,
+                        boxSizing: 'border-box'
                       }}
                       onFocus={e => {
                         e.currentTarget.style.boxShadow = '6px 6px 0px var(--color-accent, #c1440e)';
@@ -302,75 +220,261 @@ export default function LoginModal() {
                       }}
                     />
                   </div>
-                </div>
+
+                  <div>
+                    <label style={{ display: 'block', fontWeight: 800, marginBottom: '0.5rem', textTransform: 'uppercase', fontSize: '0.85rem' }}>Password</label>
+                    <input 
+                      type="password" 
+                      placeholder="••••••••"
+                      value={password}
+                      onChange={e => setPassword(e.target.value)}
+                      required
+                      style={{
+                        width: '100%',
+                        padding: '0.75rem',
+                        fontFamily: 'var(--font-sans)',
+                        fontSize: '1rem',
+                        background: 'var(--color-paper, #f4f0e6)',
+                        border: '3px solid var(--color-ink, #1a1a1a)',
+                        boxShadow: '4px 4px 0px var(--color-ink, #1a1a1a)',
+                        outline: 'none',
+                        transition: 'box-shadow 0.2s, transform 0.2s',
+                        boxSizing: 'border-box'
+                      }}
+                      onFocus={e => {
+                        e.currentTarget.style.boxShadow = '6px 6px 0px var(--color-accent, #c1440e)';
+                        e.currentTarget.style.transform = 'translate(-2px, -2px)';
+                      }}
+                      onBlur={e => {
+                        e.currentTarget.style.boxShadow = '4px 4px 0px var(--color-ink, #1a1a1a)';
+                        e.currentTarget.style.transform = 'translate(0, 0)';
+                      }}
+                    />
+                  </div>
+                </>
               )}
 
-              {isSignUp && (
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem', marginTop: '0.5rem' }}>
-                  <input 
-                    type="checkbox" 
-                    id="marketing-opt-in"
-                    checked={marketingOptIn}
-                    onChange={e => setMarketingOptIn(e.target.checked)}
-                    required
+              {isSignUp && step === 2 && (
+                <>
+                  <div>
+                    <label style={{ display: 'block', fontWeight: 800, marginBottom: '0.5rem', textTransform: 'uppercase', fontSize: '0.85rem' }}>Full Name</label>
+                    <input type="text" placeholder="John Doe" value={name} onChange={e => setName(e.target.value)} required style={{ width: '100%', padding: '0.75rem', fontFamily: 'var(--font-sans)', fontSize: '1rem', background: 'var(--color-paper, #f4f0e6)', border: '3px solid var(--color-ink, #1a1a1a)', boxShadow: '4px 4px 0px var(--color-ink, #1a1a1a)', outline: 'none', transition: 'box-shadow 0.2s, transform 0.2s', boxSizing: 'border-box' }} onFocus={e => { e.currentTarget.style.boxShadow = '6px 6px 0px var(--color-accent, #c1440e)'; e.currentTarget.style.transform = 'translate(-2px, -2px)'; }} onBlur={e => { e.currentTarget.style.boxShadow = '4px 4px 0px var(--color-ink, #1a1a1a)'; e.currentTarget.style.transform = 'translate(0, 0)'; }} />
+                  </div>
+
+                  <div>
+                    <label style={{ display: 'block', fontWeight: 800, marginBottom: '0.5rem', textTransform: 'uppercase', fontSize: '0.85rem' }}>College / University</label>
+                    <input type="text" placeholder="University Name" value={college} onChange={e => setCollege(e.target.value)} required style={{ width: '100%', padding: '0.75rem', fontFamily: 'var(--font-sans)', fontSize: '1rem', background: 'var(--color-paper, #f4f0e6)', border: '3px solid var(--color-ink, #1a1a1a)', boxShadow: '4px 4px 0px var(--color-ink, #1a1a1a)', outline: 'none', transition: 'box-shadow 0.2s, transform 0.2s', boxSizing: 'border-box' }} onFocus={e => { e.currentTarget.style.boxShadow = '6px 6px 0px var(--color-accent, #c1440e)'; e.currentTarget.style.transform = 'translate(-2px, -2px)'; }} onBlur={e => { e.currentTarget.style.boxShadow = '4px 4px 0px var(--color-ink, #1a1a1a)'; e.currentTarget.style.transform = 'translate(0, 0)'; }} />
+                  </div>
+
+                  <div style={{ display: 'flex', gap: '0.75rem' }}>
+                    <div style={{ flex: 1 }}>
+                      <label style={{ display: 'block', fontWeight: 800, marginBottom: '0.5rem', textTransform: 'uppercase', fontSize: '0.85rem' }}>Graduation Year</label>
+                      <input type="number" placeholder="2026" value={graduationYear} onChange={e => setGraduationYear(e.target.value)} required style={{ width: '100%', padding: '0.75rem', fontFamily: 'var(--font-sans)', fontSize: '1rem', background: 'var(--color-paper, #f4f0e6)', border: '3px solid var(--color-ink, #1a1a1a)', boxShadow: '4px 4px 0px var(--color-ink, #1a1a1a)', outline: 'none', transition: 'box-shadow 0.2s, transform 0.2s', boxSizing: 'border-box' }} onFocus={e => { e.currentTarget.style.boxShadow = '6px 6px 0px var(--color-accent, #c1440e)'; e.currentTarget.style.transform = 'translate(-2px, -2px)'; }} onBlur={e => { e.currentTarget.style.boxShadow = '4px 4px 0px var(--color-ink, #1a1a1a)'; e.currentTarget.style.transform = 'translate(0, 0)'; }} />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label style={{ display: 'block', fontWeight: 800, marginBottom: '0.5rem', textTransform: 'uppercase', fontSize: '0.85rem' }}>Phone Number</label>
+                    <div style={{ display: 'flex', gap: '0.75rem' }}>
+                      <select
+                        value={countryCode}
+                        onChange={e => setCountryCode(e.target.value)}
+                        style={{
+                          padding: '0.75rem',
+                          fontFamily: 'var(--font-sans)',
+                          fontSize: '1rem',
+                          background: 'var(--color-paper, #f4f0e6)',
+                          border: '3px solid var(--color-ink, #1a1a1a)',
+                          boxShadow: '4px 4px 0px var(--color-ink, #1a1a1a)',
+                          outline: 'none',
+                          transition: 'box-shadow 0.2s, transform 0.2s',
+                          cursor: 'pointer',
+                          width: '110px',
+                        }}
+                        onFocus={e => {
+                          e.currentTarget.style.boxShadow = '6px 6px 0px var(--color-accent, #c1440e)';
+                          e.currentTarget.style.transform = 'translate(-2px, -2px)';
+                        }}
+                        onBlur={e => {
+                          e.currentTarget.style.boxShadow = '4px 4px 0px var(--color-ink, #1a1a1a)';
+                          e.currentTarget.style.transform = 'translate(0, 0)';
+                        }}
+                      >
+                        <option value="+91">+91 (IN)</option>
+                        <option value="+1">+1 (US)</option>
+                        <option value="+44">+44 (UK)</option>
+                        <option value="+61">+61 (AU)</option>
+                        <option value="+971">+971 (AE)</option>
+                      </select>
+                      <input 
+                        type="tel" 
+                        placeholder="9999999999"
+                        value={phone}
+                        onChange={e => setPhone(e.target.value)}
+                        required
+                        style={{
+                          flex: 1,
+                          padding: '0.75rem',
+                          fontFamily: 'var(--font-sans)',
+                          fontSize: '1rem',
+                          background: 'var(--color-paper, #f4f0e6)',
+                          border: '3px solid var(--color-ink, #1a1a1a)',
+                          boxShadow: '4px 4px 0px var(--color-ink, #1a1a1a)',
+                          outline: 'none',
+                          transition: 'box-shadow 0.2s, transform 0.2s',
+                          boxSizing: 'border-box',
+                          minWidth: 0,
+                        }}
+                        onFocus={e => {
+                          e.currentTarget.style.boxShadow = '6px 6px 0px var(--color-accent, #c1440e)';
+                          e.currentTarget.style.transform = 'translate(-2px, -2px)';
+                        }}
+                        onBlur={e => {
+                          e.currentTarget.style.boxShadow = '4px 4px 0px var(--color-ink, #1a1a1a)';
+                          e.currentTarget.style.transform = 'translate(0, 0)';
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem', marginTop: '0.5rem' }}>
+                    <input 
+                      type="checkbox" 
+                      id="marketing-opt-in"
+                      checked={marketingOptIn}
+                      onChange={e => setMarketingOptIn(e.target.checked)}
+                      required
+                      style={{
+                        marginTop: '0.25rem',
+                        width: '1.25rem',
+                        height: '1.25rem',
+                        accentColor: 'var(--color-accent, #c1440e)',
+                        cursor: 'pointer',
+                        border: '2px solid var(--color-ink)'
+                      }}
+                    />
+                    <label htmlFor="marketing-opt-in" style={{ 
+                      fontFamily: 'var(--font-sans)', 
+                      fontSize: '0.85rem', 
+                      fontWeight: 700,
+                      lineHeight: 1.4,
+                      color: 'var(--color-ink, #1a1a1a)',
+                      cursor: 'pointer'
+                    }}>
+                      I agree to receive advertisements, offers, and promotional emails from Strivers.
+                    </label>
+                  </div>
+                </>
+              )}
+
+              {isSignUp && step === 2 ? (
+                <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
+                  <button
+                    type="button"
+                    onClick={() => setStep(1)}
                     style={{
-                      marginTop: '0.25rem',
-                      width: '1.25rem',
-                      height: '1.25rem',
-                      accentColor: 'var(--color-accent, #c1440e)',
+                      padding: '1rem',
+                      background: 'var(--color-paper)',
+                      color: 'var(--color-ink)',
+                      fontFamily: 'var(--font-heading)',
+                      fontSize: '1.25rem',
+                      fontWeight: 900,
+                      textTransform: 'uppercase',
+                      border: '3px solid var(--color-ink, #1a1a1a)',
+                      boxShadow: '4px 4px 0px var(--color-ink, #1a1a1a)',
                       cursor: 'pointer',
-                      border: '2px solid var(--color-ink)'
+                      transition: 'transform 0.1s, box-shadow 0.1s',
                     }}
-                  />
-                  <label htmlFor="marketing-opt-in" style={{ 
-                    fontFamily: 'var(--font-sans)', 
-                    fontSize: '0.85rem', 
-                    fontWeight: 700,
-                    lineHeight: 1.4,
-                    color: 'var(--color-ink, #1a1a1a)',
-                    cursor: 'pointer'
-                  }}>
-                    I agree to receive advertisements, offers, and promotional emails from Strivers.
-                  </label>
+                    onMouseDown={e => {
+                      e.currentTarget.style.transform = 'translate(4px, 4px)';
+                      e.currentTarget.style.boxShadow = '0px 0px 0px var(--color-ink)';
+                    }}
+                    onMouseUp={e => {
+                      e.currentTarget.style.transform = 'translate(0px, 0px)';
+                      e.currentTarget.style.boxShadow = '4px 4px 0px var(--color-ink)';
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.transform = 'translate(0px, 0px)';
+                      e.currentTarget.style.boxShadow = '4px 4px 0px var(--color-ink)';
+                    }}
+                  >
+                    Back
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    style={{
+                      flex: 1,
+                      padding: '1rem',
+                      background: 'var(--color-accent, #c1440e)',
+                      color: 'white',
+                      fontFamily: 'var(--font-heading)',
+                      fontSize: '1.25rem',
+                      fontWeight: 900,
+                      textTransform: 'uppercase',
+                      border: '3px solid var(--color-ink, #1a1a1a)',
+                      boxShadow: '6px 6px 0px var(--color-ink, #1a1a1a)',
+                      cursor: loading ? 'not-allowed' : 'pointer',
+                      opacity: loading ? 0.7 : 1,
+                      transition: 'transform 0.1s, box-shadow 0.1s',
+                    }}
+                    onMouseDown={e => {
+                      if (loading) return;
+                      e.currentTarget.style.transform = 'translate(6px, 6px)';
+                      e.currentTarget.style.boxShadow = '0px 0px 0px var(--color-ink)';
+                    }}
+                    onMouseUp={e => {
+                      if (loading) return;
+                      e.currentTarget.style.transform = 'translate(0px, 0px)';
+                      e.currentTarget.style.boxShadow = '6px 6px 0px var(--color-ink)';
+                    }}
+                    onMouseLeave={e => {
+                      if (loading) return;
+                      e.currentTarget.style.transform = 'translate(0px, 0px)';
+                      e.currentTarget.style.boxShadow = '6px 6px 0px var(--color-ink)';
+                    }}
+                  >
+                    {loading ? 'Processing...' : 'Submit'}
+                  </button>
                 </div>
+              ) : (
+                <button
+                  type="submit"
+                  disabled={loading}
+                  style={{
+                    marginTop: '1rem',
+                    padding: '1rem',
+                    background: 'var(--color-accent, #c1440e)',
+                    color: 'white',
+                    fontFamily: 'var(--font-heading)',
+                    fontSize: '1.25rem',
+                    fontWeight: 900,
+                    textTransform: 'uppercase',
+                    border: '3px solid var(--color-ink, #1a1a1a)',
+                    boxShadow: '6px 6px 0px var(--color-ink, #1a1a1a)',
+                    cursor: loading ? 'not-allowed' : 'pointer',
+                    opacity: loading ? 0.7 : 1,
+                    transition: 'transform 0.1s, box-shadow 0.1s',
+                  }}
+                  onMouseDown={e => {
+                    if (loading) return;
+                    e.currentTarget.style.transform = 'translate(6px, 6px)';
+                    e.currentTarget.style.boxShadow = '0px 0px 0px var(--color-ink)';
+                  }}
+                  onMouseUp={e => {
+                    if (loading) return;
+                    e.currentTarget.style.transform = 'translate(0px, 0px)';
+                    e.currentTarget.style.boxShadow = '6px 6px 0px var(--color-ink)';
+                  }}
+                  onMouseLeave={e => {
+                    if (loading) return;
+                    e.currentTarget.style.transform = 'translate(0px, 0px)';
+                    e.currentTarget.style.boxShadow = '6px 6px 0px var(--color-ink)';
+                  }}
+                >
+                  {loading ? 'Processing...' : (isSignUp ? 'Next' : 'Sign In')}
+                </button>
               )}
-
-              <button
-                type="submit"
-                disabled={loading}
-                style={{
-                  marginTop: '1rem',
-                  padding: '1rem',
-                  background: 'var(--color-accent, #c1440e)',
-                  color: 'white',
-                  fontFamily: 'var(--font-heading)',
-                  fontSize: '1.25rem',
-                  fontWeight: 900,
-                  textTransform: 'uppercase',
-                  border: '3px solid var(--color-ink, #1a1a1a)',
-                  boxShadow: '6px 6px 0px var(--color-ink, #1a1a1a)',
-                  cursor: loading ? 'not-allowed' : 'pointer',
-                  opacity: loading ? 0.7 : 1,
-                  transition: 'transform 0.1s, box-shadow 0.1s',
-                }}
-                onMouseDown={e => {
-                  if (loading) return;
-                  e.currentTarget.style.transform = 'translate(6px, 6px)';
-                  e.currentTarget.style.boxShadow = '0px 0px 0px var(--color-ink)';
-                }}
-                onMouseUp={e => {
-                  if (loading) return;
-                  e.currentTarget.style.transform = 'translate(0px, 0px)';
-                  e.currentTarget.style.boxShadow = '6px 6px 0px var(--color-ink)';
-                }}
-                onMouseLeave={e => {
-                  if (loading) return;
-                  e.currentTarget.style.transform = 'translate(0px, 0px)';
-                  e.currentTarget.style.boxShadow = '6px 6px 0px var(--color-ink)';
-                }}
-              >
-                {loading ? 'Processing...' : (isSignUp ? 'Create Account' : 'Sign In')}
-              </button>
 
               <div style={{ 
                 marginTop: '1rem', 
@@ -382,7 +486,7 @@ export default function LoginModal() {
                 {isSignUp ? "Already have an account? " : "Don't have an account? "}
                 <button
                   type="button"
-                  onClick={() => setIsSignUp(!isSignUp)}
+                  onClick={() => { setIsSignUp(!isSignUp); setStep(1); }}
                   style={{
                     background: 'none',
                     border: 'none',

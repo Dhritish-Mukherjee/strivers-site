@@ -17,7 +17,6 @@ export default function Navbar() {
   const [openDrop, setOpenDrop] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
-  const [showProfileForm, setShowProfileForm] = useState(false);
 
   useEffect(() => {
     const loadUser = () => {
@@ -32,40 +31,6 @@ export default function Navbar() {
     window.addEventListener('auth-change', loadUser);
     return () => window.removeEventListener('auth-change', loadUser);
   }, []);
-
-  const isMissingDetails = user && (!user.name || !user.college || !user.graduationYear);
-
-  const handleProfileSubmit = async (e) => {
-    e.preventDefault();
-    const token = localStorage.getItem('token');
-    const formData = new FormData(e.target);
-    const data = {
-      name: formData.get('name'),
-      college: formData.get('college'),
-      graduationYear: formData.get('graduationYear')
-    };
-
-    try {
-      const res = await fetch('/api/auth/profile', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(data)
-      });
-      if (res.ok) {
-        const result = await res.json();
-        localStorage.setItem('user', JSON.stringify(result.user));
-        setUser(result.user);
-        setShowProfileForm(false);
-      } else {
-        alert('Failed to update profile');
-      }
-    } catch (err) {
-      alert('Error updating profile');
-    }
-  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -198,41 +163,6 @@ export default function Navbar() {
               fontSize: '0.9rem', padding: '0.6rem 1.2rem', border: '2px solid var(--color-ink)',
               boxShadow: '4px 4px 0px var(--color-ink)', transform: 'translateY(-2px)'
             }}>Enroll Now</Button>
-          ) : isMissingDetails ? (
-            <div 
-              onMouseEnter={() => setShowProfileForm(true)}
-              onMouseLeave={() => setShowProfileForm(false)}
-            >
-              <Button variant="primary" id="nav-add-details-btn" style={{
-                fontSize: '0.9rem', padding: '0.6rem 1.2rem', border: '2px solid var(--color-ink)',
-                boxShadow: '4px 4px 0px var(--color-ink)', transform: 'translateY(-2px)',
-                background: 'var(--color-yellow)', color: 'var(--color-ink)'
-              }}>Add Details</Button>
-
-              <AnimatePresence>
-                {showProfileForm && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    style={{
-                      position: 'absolute', top: '100%', right: 0, marginTop: '0.5rem',
-                      background: 'var(--color-paper)', padding: '1.5rem',
-                      border: '3px solid var(--color-ink)', boxShadow: '8px 8px 0px var(--color-ink)',
-                      width: '320px', zIndex: 300, display: 'flex', flexDirection: 'column', gap: '1rem'
-                    }}
-                  >
-                    <h3 style={{ margin: 0, fontFamily: 'var(--font-heading)', fontSize: '1.2rem', color: 'var(--color-ink)' }}>Complete Profile</h3>
-                    <form onSubmit={handleProfileSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                      <input name="name" placeholder="Full Name" required style={{ padding: '0.5rem', border: '2px solid var(--color-ink)', fontFamily: 'var(--font-sans)', fontSize: '0.9rem' }} />
-                      <input name="college" placeholder="College / University" required style={{ padding: '0.5rem', border: '2px solid var(--color-ink)', fontFamily: 'var(--font-sans)', fontSize: '0.9rem' }} />
-                      <input name="graduationYear" type="number" placeholder="Graduation Year" required style={{ padding: '0.5rem', border: '2px solid var(--color-ink)', fontFamily: 'var(--font-sans)', fontSize: '0.9rem' }} />
-                      <Button type="submit" variant="primary" style={{ marginTop: '0.5rem' }}>Save Details</Button>
-                    </form>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
           ) : (
             <Button variant="primary" style={{
               fontSize: '0.9rem', padding: '0.6rem 1.2rem', border: '2px solid var(--color-ink)',
@@ -295,27 +225,6 @@ export default function Navbar() {
               <div style={{ marginTop: '1.25rem' }}>
                 {!user ? (
                   <Button onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event('open-login-modal')); setMenuOpen(false); }} variant="primary" id="mob-enroll-btn">Enroll Now</Button>
-                ) : isMissingDetails ? (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                    <Button onClick={() => setShowProfileForm(!showProfileForm)} variant="primary" style={{ background: 'var(--color-yellow)', color: 'var(--color-ink)' }}>Add Details</Button>
-                    <AnimatePresence>
-                      {showProfileForm && (
-                        <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: 'auto' }}
-                          exit={{ opacity: 0, height: 0 }}
-                          style={{ overflow: 'hidden' }}
-                        >
-                          <form onSubmit={handleProfileSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '0.5rem', background: 'rgba(255,255,255,0.5)', padding: '1rem', border: '2px solid var(--color-ink)' }}>
-                            <input name="name" placeholder="Full Name" required style={{ padding: '0.5rem', border: '2px solid var(--color-ink)' }} />
-                            <input name="college" placeholder="College / University" required style={{ padding: '0.5rem', border: '2px solid var(--color-ink)' }} />
-                            <input name="graduationYear" type="number" placeholder="Graduation Year" required style={{ padding: '0.5rem', border: '2px solid var(--color-ink)' }} />
-                            <Button type="submit" variant="primary">Save Details</Button>
-                          </form>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
                 ) : (
                   <Button variant="primary" style={{ background: 'var(--color-ink)', color: 'white' }}>Dashboard</Button>
                 )}
