@@ -2,13 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" href="/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <!-- Primary SEO Meta Tags -->
-    <title>Strivers — Prepare Smarter, Score Higher | JEE, NEET & Govt Exams</title>
-    <meta name="title" content="Strivers — Prepare Smarter, Score Higher | JEE, NEET & Govt Exams" />
-    <meta name="description" content="Strivers offers expert online preparation for JEE, NEET, SSC & Banking exams. Learn with top educators to prepare smarter, master concepts, and score higher." />
+    <title>Strivers — Prepare Smarter, Score Higher | JEE &amp; NEET</title>
+    <meta name="title" content="Strivers — Prepare Smarter, Score Higher | JEE &amp; NEET" />
+    <meta name="description" content="Strivers offers expert online preparation for JEE, NEET, SSC &amp; Banking exams. Learn with top educators to prepare smarter, master concepts, and score higher." />
     <meta name="keywords" content="Strivers, JEE Main, JEE Advanced, NEET Preparation, SSC CGL, Banking Exams, EdTech India, Online Coaching, Board Exams, StriverTech, Striver Academy" />
     <link rel="canonical" href="https://strivers.co.in/" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -19,8 +20,8 @@
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Strivers" />
     <meta property="og:url" content="https://strivers.co.in/" />
-    <meta property="og:title" content="Strivers — Prepare Smarter, Score Higher | JEE, NEET & Govt Exams" />
-    <meta property="og:description" content="Strivers offers expert online preparation for JEE, NEET, SSC & Banking exams. Learn with top educators to prepare smarter, master concepts, and score higher." />
+    <meta property="og:title" content="Strivers — Prepare Smarter, Score Higher | JEE &amp; NEET" />
+    <meta property="og:description" content="Strivers offers expert online preparation for JEE, NEET, SSC &amp; Banking exams. Learn with top educators to prepare smarter, master concepts, and score higher." />
     <meta property="og:image" content="https://strivers.co.in/logo.png" />
     <meta property="og:image:secure_url" content="https://strivers.co.in/logo.png" />
     <meta property="og:image:type" content="image/png" />
@@ -34,8 +35,8 @@
     <meta name="twitter:site" content="@Strivers050126" />
     <meta name="twitter:creator" content="@Strivers050126" />
     <meta name="twitter:url" content="https://strivers.co.in/" />
-    <meta name="twitter:title" content="Strivers — Prepare Smarter, Score Higher | JEE, NEET & Govt Exams" />
-    <meta name="twitter:description" content="Strivers offers expert online preparation for JEE, NEET, SSC & Banking exams. Learn with top educators to prepare smarter, master concepts, and score higher." />
+    <meta name="twitter:title" content="Strivers — Prepare Smarter, Score Higher | JEE &amp; NEET" />
+    <meta name="twitter:description" content="Strivers offers expert online preparation for JEE, NEET, SSC &amp; Banking exams. Learn with top educators to prepare smarter, master concepts, and score higher." />
     <meta name="twitter:image" content="https://strivers.co.in/logo.png" />
     <meta name="twitter:image:alt" content="Strivers EdTech Logo — Prepare Smarter, Score Higher" />
 
@@ -55,11 +56,17 @@
             "caption": "Strivers EdTech Logo"
           },
           "description": "India's premier EdTech channel and platform for JEE, NEET, SSC, Banking, and competitive exam preparation.",
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "IN"
+          },
           "sameAs": [
             "https://www.youtube.com/@Striverseducation",
             "https://x.com/Strivers050126",
             "https://facebook.com/share/17ihKoHDiY",
-            "https://chat.whatsapp.com/K0QF19zbGP8ELy7tkClRyG?mode=gi_t"
+            "https://chat.whatsapp.com/K0QF19zbGP8ELy7tkClRyG?mode=gi_t",
+            "https://instagram.com/striverseducation",
+            "https://linkedin.com/company/strivers-education"
           ]
         },
         {
@@ -105,10 +112,32 @@
             "name": "Strivers",
             "sameAs": "https://strivers.co.in/"
           }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What competitive exams does Strivers prepare students for?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Strivers provides structured online preparation for JEE (Main & Advanced), NEET (UG), SSC CGL, Banking (IBPS, SBI), and School Foundation (Class 9-12) examinations."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How does Strivers help students score higher?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Through concept-first video lectures, daily practice problems (DPPs), previous years' question breakdowns, and dedicated doubt mentorship from experienced faculties."
+              }
+            }
+          ]
         }
       ]
     }
     </script>
+
     <!-- Preconnect & Non-blocking Asynchronous Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -117,54 +146,74 @@
     <noscript>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700;800;900&display=swap" />
     </noscript>
+
+    <!-- Clean CSS for pre-rendered SEO fallback markup (avoids inline style penalties) -->
+    <style>
+      .seo-header { padding: 1.5rem; border-bottom: 2px solid #111; }
+      .seo-nav { display: flex; align-items: center; justify-content: space-between; max-width: 1120px; margin: 0 auto; }
+      .seo-brand { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: #111; font-size: 1.5rem; font-weight: 900; text-transform: uppercase; }
+      .seo-logo { object-fit: contain; }
+      .seo-nav-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+      .seo-nav-link { font-weight: 700; color: #111; text-decoration: none; }
+      .seo-main { max-width: 1120px; margin: 2rem auto; padding: 0 1.5rem; }
+      .seo-h1 { font-size: 2.5rem; font-weight: 900; line-height: 1.1; margin-bottom: 1rem; }
+      .seo-lead { font-size: 1.15rem; line-height: 1.6; color: #333; margin-bottom: 2rem; }
+      .seo-section { margin-bottom: 2.5rem; }
+      .seo-h2 { font-size: 1.75rem; font-weight: 800; margin-bottom: 1rem; }
+      .seo-body { line-height: 1.6; color: #444; }
+      .seo-list { margin-left: 1.5rem; line-height: 1.8; color: #444; }
+      .seo-footer { background: #111; color: #fff; padding: 2rem 1.5rem; text-align: center; }
+      .seo-footer-links { margin-top: 0.5rem; }
+      .seo-footer-link { color: #FF3B00; margin: 0 0.5rem; }
+    </style>
   </head>
   <body>
     <div id="root">
       <!-- Semantic pre-rendered content for search engine bots, web scrapers & non-JS clients -->
-      <header style="padding: 1.5rem; border-bottom: 2px solid #111;">
-        <nav style="display: flex; align-items: center; justify-content: space-between; max-width: 1120px; margin: 0 auto;">
-          <a href="https://strivers.co.in/" style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: #111;">
+      <header class="seo-header">
+        <nav class="seo-nav">
+          <a href="https://strivers.co.in/" class="seo-brand">
             <picture>
               <source srcset="/logo.webp" type="image/webp" />
-              <img src="/logo.png" alt="Strivers EdTech Logo — Prepare Smarter, Score Higher" width="160" height="45" style="object-fit: contain;" />
+              <img src="/logo.png" alt="Strivers EdTech Logo — Prepare Smarter, Score Higher" width="160" height="45" class="seo-logo" />
             </picture>
-            <span style="font-size: 1.5rem; font-weight: 900; text-transform: uppercase;">Strivers</span>
+            <span>Strivers</span>
           </a>
-          <div style="display: flex; gap: 1rem;">
-            <a href="#courses" style="font-weight: 700; color: #111; text-decoration: none;">All Courses</a>
-            <a href="#about" style="font-weight: 700; color: #111; text-decoration: none;">About Strivers</a>
-            <a href="#faculty" style="font-weight: 700; color: #111; text-decoration: none;">Faculty</a>
-            <a href="#community" style="font-weight: 700; color: #111; text-decoration: none;">Community</a>
-            <a href="#testimonials" style="font-weight: 700; color: #111; text-decoration: none;">Testimonials</a>
+          <div class="seo-nav-links">
+            <a href="#courses" class="seo-nav-link">All Courses</a>
+            <a href="#about" class="seo-nav-link">About Strivers</a>
+            <a href="#faculty" class="seo-nav-link">Faculty</a>
+            <a href="#community" class="seo-nav-link">Community</a>
+            <a href="#testimonials" class="seo-nav-link">Testimonials</a>
           </div>
         </nav>
       </header>
 
-      <main style="max-width: 1120px; margin: 2rem auto; padding: 0 1.5rem;">
+      <main class="seo-main">
         <article>
           <header>
-            <h1 style="font-size: 2.5rem; font-weight: 900; line-height: 1.1; margin-bottom: 1rem;">
+            <h1 class="seo-h1">
               Strivers — India's Premier EdTech Platform for Competitive Exams
             </h1>
-            <p style="font-size: 1.15rem; line-height: 1.6; color: #333; margin-bottom: 2rem;">
+            <p class="seo-lead">
               Prepare smarter, score higher with Strivers. Expert-led online courses and comprehensive coaching for JEE Main, JEE Advanced, NEET, SSC CGL, Banking, Foundation, and State competitive examinations.
             </p>
           </header>
 
-          <section id="courses-overview" style="margin-bottom: 2.5rem;">
-            <h2 style="font-size: 1.75rem; font-weight: 800; margin-bottom: 1rem;">
+          <section id="courses-overview" class="seo-section">
+            <h2 class="seo-h2">
               Comprehensive Preparation for JEE, NEET, SSC &amp; Banking
             </h2>
-            <p style="line-height: 1.6; color: #444;">
+            <p class="seo-body">
               Strivers delivers structured syllabus coverage, curated problem sets, high-yield concept lectures, and daily doubt-solving mentorship designed to take students from basics to AIR top ranks.
             </p>
           </section>
 
-          <section id="courses-grid" style="margin-bottom: 2.5rem;">
-            <h2 style="font-size: 1.75rem; font-weight: 800; margin-bottom: 1rem;">
+          <section id="courses-grid" class="seo-section">
+            <h2 class="seo-h2">
               Top Competitive Exam Categories &amp; Online Batches
             </h2>
-            <ul>
+            <ul class="seo-list">
               <li><strong>JEE Main &amp; Advanced:</strong> Physics, Chemistry, and Mathematics masterclasses with top faculty.</li>
               <li><strong>NEET Medical Prep:</strong> In-depth NCERT biology, organic/inorganic chemistry, and conceptual physics.</li>
               <li><strong>SSC &amp; Banking Exams:</strong> Quantitative aptitude, logical reasoning, general studies, and English.</li>
@@ -172,33 +221,35 @@
             </ul>
           </section>
 
-          <section id="faculty-overview" style="margin-bottom: 2.5rem;">
-            <h2 style="font-size: 1.75rem; font-weight: 800; margin-bottom: 1rem;">
+          <section id="faculty-overview" class="seo-section">
+            <h2 class="seo-h2">
               Expert Faculty &amp; Dedicated Mentorship
             </h2>
-            <p style="line-height: 1.6; color: #444;">
+            <p class="seo-body">
               Learn from India's celebrated educators with decades of combined teaching experience, proven pedagogical techniques, and thousands of top exam selections.
             </p>
           </section>
 
-          <section id="community-overview" style="margin-bottom: 2.5rem;">
-            <h2 style="font-size: 1.75rem; font-weight: 800; margin-bottom: 1rem;">
+          <section id="community-overview" class="seo-section">
+            <h2 class="seo-h2">
               Join India's Fastest Growing Student Community
             </h2>
-            <p style="line-height: 1.6; color: #444;">
+            <p class="seo-body">
               Connect with over 100,000+ ambitious aspirants on our YouTube channel, WhatsApp study groups, and Telegram discussion rooms.
             </p>
           </section>
         </article>
       </main>
 
-      <footer style="background: #111; color: #fff; padding: 2rem 1.5rem; text-align: center;">
+      <footer class="seo-footer">
         <p>&copy; 2026 Strivers Education. Prepare Smarter, Score Higher.</p>
-        <p style="margin-top: 0.5rem;">
-          <a href="https://www.youtube.com/@Striverseducation" rel="noopener noreferrer" target="_blank" style="color: #FF3B00; margin: 0 0.5rem;">YouTube</a>
-          <a href="https://x.com/Strivers050126" rel="noopener noreferrer" target="_blank" style="color: #FF3B00; margin: 0 0.5rem;">Twitter (X)</a>
-          <a href="https://facebook.com/share/17ihKoHDiY" rel="noopener noreferrer" target="_blank" style="color: #FF3B00; margin: 0 0.5rem;">Facebook</a>
-          <a href="https://chat.whatsapp.com/K0QF19zbGP8ELy7tkClRyG?mode=gi_t" rel="noopener noreferrer" target="_blank" style="color: #FF3B00; margin: 0 0.5rem;">WhatsApp</a>
+        <p class="seo-footer-links">
+          <a href="https://www.youtube.com/@Striverseducation" rel="noopener noreferrer" target="_blank" class="seo-footer-link">YouTube</a>
+          <a href="https://x.com/Strivers050126" rel="noopener noreferrer" target="_blank" class="seo-footer-link">Twitter (X)</a>
+          <a href="https://facebook.com/share/17ihKoHDiY" rel="noopener noreferrer" target="_blank" class="seo-footer-link">Facebook</a>
+          <a href="https://chat.whatsapp.com/K0QF19zbGP8ELy7tkClRyG?mode=gi_t" rel="noopener noreferrer" target="_blank" class="seo-footer-link">WhatsApp</a>
+          <a href="https://instagram.com/striverseducation" rel="noopener noreferrer" target="_blank" class="seo-footer-link">Instagram</a>
+          <a href="https://linkedin.com/company/strivers-education" rel="noopener noreferrer" target="_blank" class="seo-footer-link">LinkedIn</a>
         </p>
       </footer>
     </div>
