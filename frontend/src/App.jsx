@@ -12,6 +12,7 @@ import TestimonialBanner from './components/TestimonialBanner.jsx';
 import Footer from './components/Footer.jsx';
 import NotFound from './pages/NotFound.jsx';
 import ParticleNetwork from './components/ParticleNetwork.jsx';
+import RisingLine from './components/RisingLine.jsx';
 import LoginModal from './components/LoginModal.jsx';
 
 const TornEdge = () => (
@@ -25,6 +26,7 @@ function HomePage() {
     <div style={{ background: 'var(--color-paper)', minHeight: '100vh', position: 'relative' }}>
       <div className="noise-overlay" />
       <ParticleNetwork density={15000} fixed={true} />
+      <RisingLine />
       <Navbar />
       <main style={{ position: 'relative' }}>
         <Hero />

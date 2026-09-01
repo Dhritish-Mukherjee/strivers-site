@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Button } from './ui/Button.jsx';
 import { IconPlay } from '../assets/icons/Icons.jsx';
 import ParticleNetwork from './ParticleNetwork.jsx';
+import EquationAnimation from './EquationAnimation.jsx';
 
 const headlineWords = ['Learn', 'like', 'a', 'Strivers.'];
 
@@ -53,6 +54,7 @@ export default function Hero() {
       <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(26,26,26,0.05) 2px, transparent 2px), linear-gradient(90deg, rgba(26,26,26,0.05) 2px, transparent 2px)', backgroundSize: '40px 40px', zIndex: 0 }} />
 
       <ParticleNetwork />
+      <EquationAnimation />
       <div className="container" style={{ position: 'relative', zIndex: 10 }}>
         {/* Eyebrow */}
         <motion.div
