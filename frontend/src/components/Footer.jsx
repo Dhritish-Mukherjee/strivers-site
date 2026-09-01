@@ -72,13 +72,12 @@ export default function Footer() {
           {/* Brand col */}
           <div>
             <div style={{ alignItems:'center', gap:'0.375rem', marginBottom:'1.5rem', background: 'var(--color-yellow)', padding: '0.5rem 1rem', display: 'inline-flex', border: '3px solid var(--color-ink)' }}>
-              <span style={{ fontFamily:'var(--font-sans)', fontSize:'1.75rem', fontWeight:900, textTransform: 'uppercase', color: 'var(--color-ink)' }}>Strivers</span>
+              <span style={{ fontFamily:'var(--font-sans)', fontSize:'1.75rem', fontWeight:900, textTransform: 'uppercase', color: 'var(--color-ink)' }}>Strivers Bangla</span>
               <span style={{ width:'8px', height:'8px', background:'var(--color-accent)', marginTop:'4px' }} />
             </div>
             <p style={{ fontFamily:'var(--font-sans)', fontSize:'1rem', fontWeight: 600, lineHeight:1.6,
               color:'rgba(250,247,242,0.8)', marginBottom:'2rem', maxWidth:'26ch' }}>
-              India&rsquo;s leading EdTech channel for competitive exam prep — expert educators,
-              structured courses, and a community that keeps you going.
+              West Bengal&rsquo;s premier platform for Government Job Preparation, SSC in Kolkata, WBCS, Banking, JEE &amp; NEET.
             </p>
             <div style={{ display:'flex', gap:'0.625rem' }}>
               {socials.map(s => {

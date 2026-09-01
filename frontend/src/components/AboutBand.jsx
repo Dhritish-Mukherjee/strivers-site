@@ -62,23 +62,23 @@ export default function AboutBand() {
               fontFamily: 'var(--font-sans)', fontSize: '0.9rem', fontWeight: 900,
               letterSpacing: '0.15em', textTransform: 'uppercase',
               color: 'var(--color-paper)', background: 'var(--color-ink)', display: 'inline-block', padding: '0.3rem 0.8rem', transform: 'rotate(-2deg)', marginBottom: '1.5rem',
-            }}>About Strivers</p>
+            }}>About Strivers Bangla</p>
             <h2 style={{
               fontFamily: 'var(--font-sans)',
               fontSize: 'clamp(2rem, 4vw, 3rem)',
               fontWeight: 900, lineHeight: 1.1, textTransform: 'uppercase',
               color: 'var(--color-ink)', marginBottom: '1rem', textShadow: '4px 4px 0px #fff'
             }}>
-              Built for India's most determined learners.
+              Built for West Bengal's most determined learners.
             </h2>
             <p style={{
               fontFamily: 'var(--font-sans)', fontSize: '1rem', fontWeight: 600,
               color: 'var(--color-ink)', lineHeight: 1.75, maxWidth: '44ch',
             }}>
-              Strivers started as a YouTube channel with one goal: make world-class exam
-              preparation accessible to every student in India — regardless of city,
-              coaching budget, or background. Today, over 100,000 students prepare daily
-              with our structured courses, live sessions, and expert faculty.
+              Strivers Bangla Education started with one goal: make the best government job
+              preparation in West Bengal and top SSC coaching in Kolkata accessible to every student.
+              Today, over 100,000 aspirants prepare daily with our structured bilingual courses, live
+              sessions, and expert faculty.
             </p>
           </div>
 

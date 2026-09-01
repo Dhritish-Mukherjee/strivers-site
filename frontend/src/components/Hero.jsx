@@ -68,7 +68,7 @@ export default function Hero() {
           <span style={{
             fontFamily: 'var(--font-sans)', fontSize: '0.8rem', fontWeight: 800,
             letterSpacing: '0.1em', textTransform: 'uppercase',
-          }}>India's Premier EdTech Channel 🚀</span>
+          }}>West Bengal's Premier EdTech Platform 🚀</span>
         </motion.div>
 
         {/* Two-column grid */}
