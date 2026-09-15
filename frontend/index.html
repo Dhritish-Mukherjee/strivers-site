@@ -165,87 +165,80 @@
     }
     </script>
 
-    <!-- Preconnect & Non-blocking Asynchronous Google Fonts -->
+    <!-- Preconnect & Streamlined Google Fonts (non-blocking display=swap) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700;800;900&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700;800;900&display=swap" media="print" onload="this.media='all'" />
-    <noscript>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700;800;900&display=swap" />
-    </noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700;800;900&display=swap" />
 
-    <!-- Clean CSS for pre-rendered SEO fallback markup (avoids inline style penalties) -->
     <style>
-      .seo-header { padding: 1.5rem; border-bottom: 2px solid #111; }
-      .seo-nav { display: flex; align-items: center; justify-content: space-between; max-width: 1120px; margin: 0 auto; }
-      .seo-brand { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: #111; font-size: 1.5rem; font-weight: 900; text-transform: uppercase; }
-      .seo-logo { object-fit: contain; }
-      .seo-nav-links { display: flex; gap: 1rem; flex-wrap: wrap; }
-      .seo-nav-link { font-weight: 700; color: #111; text-decoration: none; }
-      .seo-main { max-width: 1120px; margin: 2rem auto; padding: 0 1.5rem; }
-      .seo-h1 { font-size: 2.5rem; font-weight: 900; line-height: 1.1; margin-bottom: 1rem; }
-      .seo-lead { font-size: 1.15rem; line-height: 1.6; color: #333; margin-bottom: 2rem; }
-      .seo-section { margin-bottom: 2.5rem; }
-      .seo-h2 { font-size: 1.75rem; font-weight: 800; margin-bottom: 1rem; }
-      .seo-body { line-height: 1.6; color: #444; }
-      .seo-list { margin-left: 1.5rem; line-height: 1.8; color: #444; }
-      .seo-footer { background: #111; color: #fff; padding: 2rem 1.5rem; text-align: center; }
-      .seo-footer-links { margin-top: 0.5rem; }
-      .seo-footer-link { color: #FF3B00; margin: 0 0.5rem; }
+      /* Smooth initial loading placeholder */
+      #app-preloader {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #FFF3E2;
+        z-index: 1000;
+        transition: opacity 0.2s ease;
+      }
+      #app-preloader img {
+        width: 160px;
+        height: auto;
+        opacity: 0.95;
+      }
     </style>
   </head>
   <body>
     <div id="root">
-      <!-- Semantic pre-rendered content for search engine bots, web scrapers & non-JS clients -->
-      <header class="seo-header">
-        <nav class="seo-nav">
-          <a href="https://strivers.co.in/" class="seo-brand">
-            <picture>
-              <source srcset="/logo.webp" type="image/webp" />
-              <img src="/logo.png" alt="Strivers Bangla Education Logo — Prepare Smarter, Score Higher" width="160" height="45" class="seo-logo" />
-            </picture>
-            <span>Strivers Bangla</span>
-          </a>
-          <div class="seo-nav-links">
-            <a href="#courses" class="seo-nav-link">Govt Job Courses</a>
-            <a href="#courses" class="seo-nav-link">SSC &amp; Banking</a>
-            <a href="#courses" class="seo-nav-link">JEE &amp; NEET</a>
-            <a href="#about" class="seo-nav-link">About Strivers Bangla</a>
-            <a href="#faculty" class="seo-nav-link">Faculty in Kolkata</a>
-            <a href="#community" class="seo-nav-link">West Bengal Community</a>
-            <a href="#testimonials" class="seo-nav-link">Success Stories</a>
+      <!-- Clean branded placeholder matching page background (prevents FOUC/random text flash) -->
+      <div id="app-preloader" aria-hidden="true">
+        <picture>
+          <source srcset="/logo.webp" type="image/webp" />
+          <img src="/logo.png" alt="Strivers" width="160" height="45" />
+        </picture>
+      </div>
+    </div>
+
+    <!-- Semantic fallback for search engines & non-JS crawlers (never rendered to JS visitors) -->
+    <noscript>
+      <header>
+        <nav>
+          <a href="https://strivers.co.in/">Strivers Bangla Education</a>
+          <div>
+            <a href="#courses">Govt Job Courses</a>
+            <a href="#courses">SSC &amp; Banking</a>
+            <a href="#courses">JEE &amp; NEET</a>
+            <a href="#about">About Strivers Bangla</a>
+            <a href="#faculty">Faculty in Kolkata</a>
+            <a href="#community">West Bengal Community</a>
+            <a href="#testimonials">Success Stories</a>
           </div>
         </nav>
       </header>
 
-      <main class="seo-main">
+      <main>
         <article>
           <header>
-            <h1 class="seo-h1">
-              Strivers Bangla Education — Best Government Job &amp; SSC Preparation in Kolkata, West Bengal
-            </h1>
-            <p class="seo-lead">
+            <h1>Strivers Bangla Education — Best Government Job &amp; SSC Preparation in Kolkata, West Bengal</h1>
+            <p>
               Welcome to <strong>Strivers Bangla Education</strong>, West Bengal's leading competitive exam coaching platform. Delivering the <strong>best government job preparation in West Bengal</strong> and <strong>best SSC preparation in Kolkata</strong> with top educators, structured courses in Bangla &amp; English, and proven results for WBCS, WBP, SSC CGL, Banking, JEE, and NEET aspirants.
             </p>
           </header>
 
-          <section id="govt-job-west-bengal" class="seo-section">
-            <h2 class="seo-h2">
-              Best Government Job Preparation in West Bengal
-            </h2>
-            <p class="seo-body">
+          <section id="govt-job-west-bengal">
+            <h2>Best Government Job Preparation in West Bengal</h2>
+            <p>
               Looking for the <strong>best government job preparation in West Bengal</strong>? Strivers Bangla Education offers dedicated batches for WBCS (Executive &amp; Services), West Bengal Police (WBP SI &amp; Constable), WBPSC Clerkship, and Railway exams. Our expert faculty from Kolkata provides bilingual concept breakdown, chapter-wise mock tests, and comprehensive general studies notes in Bengali and English.
             </p>
           </section>
 
-          <section id="ssc-coaching-kolkata" class="seo-section">
-            <h2 class="seo-h2">
-              Best SSC Preparation in Kolkata &amp; Banking Exam Coaching
-            </h2>
-            <p class="seo-body">
+          <section id="ssc-coaching-kolkata">
+            <h2>Best SSC Preparation in Kolkata &amp; Banking Exam Coaching</h2>
+            <p>
               Ace Staff Selection Commission exams with the <strong>best SSC preparation in Kolkata</strong>. Strivers Bangla Education covers SSC CGL, SSC CHSL, MTS, and GD Constable with advanced quantitative aptitude shortcuts, logical reasoning, and English grammar mastery. We also provide specialized coaching for IBPS PO, SBI Clerk, and RRB NTPC.
             </p>
-            <ul class="seo-list">
+            <ul>
               <li><strong>SSC CGL &amp; CHSL Masterclasses:</strong> Complete Tier 1 &amp; Tier 2 syllabus coverage with previous year question (PYQ) solutions.</li>
               <li><strong>WBCS &amp; West Bengal State Exams:</strong> In-depth Indian Polity, History of Bengal, Geography, Economy, and Current Affairs.</li>
               <li><strong>Banking &amp; Insurance:</strong> Fast calculation tricks, data interpretation, and banking awareness.</li>
@@ -253,38 +246,35 @@
             </ul>
           </section>
 
-          <section id="strivers-bangla-advantage" class="seo-section">
-            <h2 class="seo-h2">
-              Why Aspirants Choose Strivers Bangla Education
-            </h2>
-            <p class="seo-body">
+          <section id="strivers-bangla-advantage">
+            <h2>Why Aspirants Choose Strivers Bangla Education</h2>
+            <p>
               With over 100,000+ active learners across West Bengal, <strong>Strivers Bangla Education</strong> bridges the gap between high-quality competitive coaching and affordability. Students from Kolkata, Howrah, North &amp; South 24 Parganas, Hooghly, Siliguri, Medinipur, and across West Bengal prepare daily with our live sessions, daily practice problems (DPPs), and personalized mentor support.
             </p>
           </section>
 
-          <section id="join-bengal-community" class="seo-section">
-            <h2 class="seo-h2">
-              Join the Strivers Bangla Student Community
-            </h2>
-            <p class="seo-body">
+          <section id="join-bengal-community">
+            <h2>Join the Strivers Bangla Student Community</h2>
+            <p>
               Connect with fellow aspirants across West Bengal on our official YouTube channel, Telegram study rooms, and WhatsApp groups for daily current affairs, class updates, and exam strategy discussions.
             </p>
           </section>
         </article>
       </main>
 
-      <footer class="seo-footer">
+      <footer>
         <p>&copy; 2026 Strivers Bangla Education. Best Government Job &amp; SSC Preparation in Kolkata, West Bengal.</p>
-        <p class="seo-footer-links">
-          <a href="https://www.youtube.com/@Striverseducation" rel="noopener noreferrer" target="_blank" class="seo-footer-link">YouTube Channel</a>
-          <a href="https://x.com/Strivers050126" rel="noopener noreferrer" target="_blank" class="seo-footer-link">Twitter (X)</a>
-          <a href="https://facebook.com/share/17ihKoHDiY" rel="noopener noreferrer" target="_blank" class="seo-footer-link">Facebook</a>
-          <a href="https://chat.whatsapp.com/K0QF19zbGP8ELy7tkClRyG?mode=gi_t" rel="noopener noreferrer" target="_blank" class="seo-footer-link">WhatsApp Study Group</a>
-          <a href="https://instagram.com/striverseducation" rel="noopener noreferrer" target="_blank" class="seo-footer-link">Instagram</a>
-          <a href="https://linkedin.com/company/strivers-education" rel="noopener noreferrer" target="_blank" class="seo-footer-link">LinkedIn</a>
+        <p>
+          <a href="https://www.youtube.com/@Striverseducation">YouTube Channel</a> |
+          <a href="https://x.com/Strivers050126">Twitter (X)</a> |
+          <a href="https://facebook.com/share/17ihKoHDiY">Facebook</a> |
+          <a href="https://chat.whatsapp.com/K0QF19zbGP8ELy7tkClRyG?mode=gi_t">WhatsApp Study Group</a> |
+          <a href="https://instagram.com/striverseducation">Instagram</a> |
+          <a href="https://linkedin.com/company/strivers-education">LinkedIn</a>
         </p>
       </footer>
-    </div>
+    </noscript>
+
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
