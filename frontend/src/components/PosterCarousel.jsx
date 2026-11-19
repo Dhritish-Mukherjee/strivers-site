@@ -43,7 +43,7 @@ export default function PosterCarousel() {
   const touchStart = useRef(null);
   const reduced = useRef(
     typeof window !== 'undefined' &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    (window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches || false)
   );
 
   useEffect(() => {

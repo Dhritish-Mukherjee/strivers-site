@@ -231,7 +231,7 @@ export default function FacultyCarousel() {
   }, [hovered, expanded]);
 
   useEffect(() => {
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const reduced = typeof window !== 'undefined' && (window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches || false);
     if (reduced) return;
     const t = setInterval(() => {
       if (!pausedRef.current) setCurrent(c => (c + 1) % N);

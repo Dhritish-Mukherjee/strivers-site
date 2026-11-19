@@ -5,35 +5,53 @@ export default function EquationAnimation() {
   const controls = useAnimation();
 
   useEffect(() => {
+    let mounted = true;
     async function sequence() {
       // Small delay on mount
       await new Promise(r => setTimeout(r, 1000));
       
-      while (true) {
-        // 1. Draw equation: ∫ e^x dx
-        await controls.start("drawEq", { transition: { duration: 1.5, ease: "easeInOut" } });
-        await new Promise(r => setTimeout(r, 1500));
-        
-        // 2. Equals sign
-        await controls.start("drawEqSign", { transition: { duration: 0.5, ease: "easeInOut" } });
-        await new Promise(r => setTimeout(r, 1000));
-        
-        // 3. Solve step 1: e^x
-        await controls.start("drawAns1", { transition: { duration: 1, ease: "easeInOut" } });
-        await new Promise(r => setTimeout(r, 1000));
-        
-        // 4. Solve step 2: + C
-        await controls.start("drawAns2", { transition: { duration: 1, ease: "easeInOut" } });
-        await new Promise(r => setTimeout(r, 6000)); // loop delay
-        
-        // Fade out
-        await controls.start("fadeOut", { transition: { duration: 0.8 } });
-        // Reset
-        controls.set("reset");
-        await new Promise(r => setTimeout(r, 500));
+      while (mounted) {
+        try {
+          // 1. Draw equation: ∫ e^x dx
+          await controls.start("drawEq", { transition: { duration: 1.5, ease: "easeInOut" } });
+          if (!mounted) break;
+          await new Promise(r => setTimeout(r, 1500));
+          if (!mounted) break;
+          
+          // 2. Equals sign
+          await controls.start("drawEqSign", { transition: { duration: 0.5, ease: "easeInOut" } });
+          if (!mounted) break;
+          await new Promise(r => setTimeout(r, 1000));
+          if (!mounted) break;
+          
+          // 3. Solve step 1: e^x
+          await controls.start("drawAns1", { transition: { duration: 1, ease: "easeInOut" } });
+          if (!mounted) break;
+          await new Promise(r => setTimeout(r, 1000));
+          if (!mounted) break;
+          
+          // 4. Solve step 2: + C
+          await controls.start("drawAns2", { transition: { duration: 1, ease: "easeInOut" } });
+          if (!mounted) break;
+          await new Promise(r => setTimeout(r, 6000)); // loop delay
+          if (!mounted) break;
+          
+          // Fade out
+          await controls.start("fadeOut", { transition: { duration: 0.8 } });
+          if (!mounted) break;
+          // Reset
+          controls.set("reset");
+          await new Promise(r => setTimeout(r, 500));
+        } catch {
+          break;
+        }
       }
     }
     sequence();
+    return () => {
+      mounted = false;
+      try { controls.stop(); } catch {}
+    };
   }, [controls]);
 
   const pathProps = {

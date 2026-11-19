@@ -7,6 +7,7 @@ export default function ParticleNetwork({ interactive = true, density = 15000, f
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
+    if (!ctx) return; // Prevent crashes when 2D canvas is disabled or unsupported
     
     // Parent should be relative
     let w = canvas.width = window.innerWidth;
@@ -123,13 +124,13 @@ export default function ParticleNetwork({ interactive = true, density = 15000, f
     let isVisible = true;
 
     // Pause updates when off-screen
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        isVisible = entry.isIntersecting;
-      });
-    }, { threshold: 0 });
-    
-    if (canvasRef.current) {
+    let observer;
+    if (typeof IntersectionObserver !== 'undefined' && canvasRef.current) {
+      observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          isVisible = entry.isIntersecting;
+        });
+      }, { threshold: 0 });
       observer.observe(canvasRef.current);
     }
 
@@ -184,7 +185,7 @@ export default function ParticleNetwork({ interactive = true, density = 15000, f
     loop();
 
     return () => {
-      observer.disconnect();
+      if (observer) observer.disconnect();
       window.removeEventListener('resize', resize);
       cancelAnimationFrame(animationId);
       if (!isMobile && interactive) {

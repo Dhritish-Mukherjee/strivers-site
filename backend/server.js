@@ -12,8 +12,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/strivers-
   console.log('✅ MongoDB connected');
 })
 .catch(err => {
-  console.error('❌ MongoDB connection error:', err);
-  process.exit(1);
+  console.error('⚠️ MongoDB connection error (server will continue running):', err);
 });
 
 // Security Headers Middleware (including HSTS, nosniff, xss protection, frame options)
@@ -26,8 +25,8 @@ app.use((req, res, next) => {
   next();
 });
 
-// Middleware
-app.use(cors({
+// Middleware - Apply CORS to API routes
+app.use('/api', cors({
   origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
   credentials: true
 }));

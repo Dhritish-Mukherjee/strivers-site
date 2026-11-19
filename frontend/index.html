@@ -180,7 +180,8 @@
         justify-content: center;
         background-color: #FFF3E2;
         z-index: 1000;
-        transition: opacity 0.2s ease;
+        transition: opacity 0.25s ease;
+        pointer-events: none;
       }
       #app-preloader img {
         width: 160px;
@@ -199,6 +200,24 @@
         </picture>
       </div>
     </div>
+
+    <script>
+      (function() {
+        var preloader = document.getElementById('app-preloader');
+        function removePreloader() {
+          if (!preloader) return;
+          preloader.style.opacity = '0';
+          setTimeout(function() {
+            if (preloader && preloader.parentNode) preloader.parentNode.removeChild(preloader);
+          }, 250);
+        }
+        window.__dismissPreloader = removePreloader;
+
+        // Failsafe: Never leave the user stuck on the preloader screen
+        setTimeout(removePreloader, 3500);
+        window.addEventListener('error', function() { setTimeout(removePreloader, 1000); });
+      })();
+    </script>
 
     <!-- Semantic fallback for search engines & non-JS crawlers (never rendered to JS visitors) -->
     <noscript>

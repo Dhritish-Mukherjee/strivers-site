@@ -20,10 +20,16 @@ export default function Navbar() {
 
   useEffect(() => {
     const loadUser = () => {
-      const u = localStorage.getItem('user');
-      if (u) {
-        setUser(JSON.parse(u));
-      } else {
+      try {
+        const u = localStorage.getItem('user');
+        if (u && u !== 'undefined' && u !== 'null') {
+          setUser(JSON.parse(u));
+        } else {
+          setUser(null);
+        }
+      } catch (e) {
+        console.warn('Could not read user from localStorage:', e);
+        try { localStorage.removeItem('user'); } catch {}
         setUser(null);
       }
     };
