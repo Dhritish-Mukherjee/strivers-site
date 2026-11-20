@@ -321,7 +321,7 @@ export default function Hero() {
       </div>
 
       <style>{`
-        @media(max-width:768px){
+        @media(max-width:900px){
           .hero-grid{grid-template-columns:1fr!important;gap:2.5rem!important;}
           .hero-sticker{left: auto !important; right: 0 !important; top: -3rem !important;}
         }

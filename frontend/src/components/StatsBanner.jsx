@@ -103,6 +103,11 @@ export default function StatsBanner() {
       </div>
 
       <style>{`
+        @media(max-width:900px) and (min-width:641px){
+          .stats-grid{grid-template-columns:1fr 1fr!important;}
+          .stat-cell:nth-child(2n){border-right:none!important;}
+          .stat-cell:nth-child(-n+2){border-bottom:4px solid var(--color-ink)!important;}
+        }
         @media(max-width:640px){
           .stats-grid{grid-template-columns:1fr!important;}
           .stat-cell{border-right:none!important;border-bottom:4px solid var(--color-ink)!important;}

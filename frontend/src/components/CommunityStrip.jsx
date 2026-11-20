@@ -12,17 +12,17 @@ const BRAND = {
 };
 
 const links = [
-  { id: 'yt', label: 'YT Live',     sub: 'Live Classes',    href: 'https://www.youtube.com/@Striverseducation',
+  { id: 'yt', label: 'YT Live',     sub: 'Live Classes',   href: 'https://www.youtube.com/@Striverseducation',
     icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="5" width="20" height="14" rx="2"/><polygon points="10 9 15 12 10 15" fill="currentColor" stroke="none"/></svg> },
-  { id: 'wa', label: 'WhatsApp',    sub: 'Community',       href: 'https://chat.whatsapp.com/K0QF19zbGP8ELy7tkClRyG?mode=gi_t',
+  { id: 'wa', label: 'WhatsApp',    sub: 'Community',      href: 'https://chat.whatsapp.com/K0QF19zbGP8ELy7tkClRyG?mode=gi_t',
     icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg> },
-  { id: 'fb', label: 'Facebook',    sub: 'Community',       href: 'https://facebook.com/share/17ihKoHDiY',
+  { id: 'fb', label: 'Facebook',    sub: 'Community',      href: 'https://facebook.com/share/17ihKoHDiY',
     icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg> },
-  { id: 'tg', label: 'Telegram',    sub: 'Updates',         href: '#',
+  { id: 'tg', label: 'Telegram',    sub: 'Updates',        href: '#',
     icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg> },
-  { id: 'tw', label: 'X (Twitter)', sub: 'Follow us',       href: 'https://x.com/Strivers050126',
+  { id: 'tw', label: 'X (Twitter)', sub: 'Follow us',      href: 'https://x.com/Strivers050126',
     icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> },
-  { id: 'ig', label: 'Instagram',   sub: 'Behind the scenes', href: '#',
+  { id: 'ig', label: 'Instagram',   sub: 'Behind Scenes',  href: 'https://instagram.com/striverseducation',
     icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg> },
 ];
 
@@ -46,9 +46,8 @@ export default function CommunityStrip() {
           animate={inView ? 'visible' : 'hidden'}
           variants={{ visible: { transition: { staggerChildren: 0.07 } } }}
           className="community-grid"
-          style={{ display: 'grid', gridTemplateColumns: 'repeat(6,1fr)', border: '4px solid var(--color-ink)', boxShadow: 'var(--shadow-brutal)', background: '#fff' }}
         >
-          {links.map((link, i) => {
+          {links.map((link) => {
             const bc = BRAND[link.id];
             return (
               <motion.a
@@ -57,38 +56,69 @@ export default function CommunityStrip() {
                 target={link.href && link.href !== '#' ? '_blank' : '_self'}
                 rel="noopener noreferrer"
                 id={`community-${link.id}`}
+                className="community-card"
                 variants={{ hidden: { opacity:0,y:8 }, visible: { opacity:1,y:0,transition:{duration:0.3} } }}
-                style={{
-                  display: 'flex', alignItems: 'center', gap: '0.875rem',
-                  padding: '1.5rem 1.25rem',
-                  borderRight: i < links.length - 1 ? '4px solid var(--color-ink)' : 'none',
-                  color: 'var(--color-ink)', textDecoration: 'none',
-                  transition: 'background 0.18s, transform 0.18s',
-                }}
                 onMouseEnter={e => {
                   e.currentTarget.style.background = bc;
-                  e.currentTarget.querySelector('.comm-icon').style.color = '#fff';
-                  e.currentTarget.querySelector('.comm-text').style.color = '#fff';
-                  e.currentTarget.querySelector('.comm-sub').style.color = 'rgba(255,255,255,0.8)';
-                  e.currentTarget.style.transform = 'translateY(-4px)';
+                  const icon = e.currentTarget.querySelector('.comm-icon');
+                  const title = e.currentTarget.querySelector('.comm-text');
+                  const sub = e.currentTarget.querySelector('.comm-sub');
+                  if (icon) icon.style.color = '#fff';
+                  if (title) title.style.color = '#fff';
+                  if (sub) sub.style.color = 'rgba(255,255,255,0.85)';
+                  e.currentTarget.style.transform = 'translateY(-3px)';
                 }}
                 onMouseLeave={e => {
-                  e.currentTarget.style.background = 'transparent';
-                  e.currentTarget.querySelector('.comm-icon').style.color = 'var(--color-ink)';
-                  e.currentTarget.querySelector('.comm-text').style.color = 'var(--color-ink)';
-                  e.currentTarget.querySelector('.comm-sub').style.color = 'var(--color-ink-faint)';
+                  e.currentTarget.style.background = '#fff';
+                  const icon = e.currentTarget.querySelector('.comm-icon');
+                  const title = e.currentTarget.querySelector('.comm-text');
+                  const sub = e.currentTarget.querySelector('.comm-sub');
+                  if (icon) icon.style.color = 'var(--color-ink)';
+                  if (title) title.style.color = 'var(--color-ink)';
+                  if (sub) sub.style.color = 'var(--color-ink-faint)';
                   e.currentTarget.style.transform = 'none';
                 }}
               >
                 <span className="comm-icon" style={{
-                  color: 'var(--color-ink)', flexShrink: 0,
+                  color: 'var(--color-ink)',
+                  flexShrink: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                   transition: 'color 0.18s',
                 }}>
                   {link.icon}
                 </span>
-                <span>
-                  <span className="comm-text" style={{ display:'block', fontFamily:'var(--font-sans)', fontSize:'1rem', fontWeight:900, textTransform:'uppercase', color:'var(--color-ink)', transition: 'color 0.18s' }}>{link.label}</span>
-                  <span className="comm-sub" style={{ display:'block', fontFamily:'var(--font-sans)', fontSize:'0.75rem', fontWeight:700, color:'var(--color-ink-faint)', marginTop:'0.1rem', transition: 'color 0.18s' }}>{link.sub}</span>
+                <span style={{ minWidth: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+                  <span className="comm-text" style={{
+                    display: 'block',
+                    fontFamily: 'var(--font-sans)',
+                    fontSize: 'clamp(0.82rem, 0.95vw, 0.925rem)',
+                    fontWeight: 900,
+                    textTransform: 'uppercase',
+                    color: 'var(--color-ink)',
+                    whiteSpace: 'nowrap',
+                    letterSpacing: '0.01em',
+                    lineHeight: 1.2,
+                    transition: 'color 0.18s'
+                  }}>
+                    {link.label}
+                  </span>
+                  <span className="comm-sub" style={{
+                    display: 'block',
+                    fontFamily: 'var(--font-sans)',
+                    fontSize: '0.72rem',
+                    fontWeight: 700,
+                    color: 'var(--color-ink-faint)',
+                    marginTop: '0.15rem',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    lineHeight: 1.2,
+                    transition: 'color 0.18s'
+                  }}>
+                    {link.sub}
+                  </span>
                 </span>
               </motion.a>
             );
@@ -97,21 +127,83 @@ export default function CommunityStrip() {
       </div>
 
       <style>{`
-        @media(max-width:768px){
-          .community-grid{grid-template-columns:1fr 1fr!important;}
-          .community-grid a:nth-child(2n){border-right:none!important;}
-          .community-grid a{border-bottom:4px solid var(--color-ink)!important;}
-          .community-grid a:nth-last-child(-n+2){border-bottom:none!important;}
+        /* Base: 6 columns on large screens */
+        .community-grid {
+          display: grid;
+          grid-template-columns: repeat(6, 1fr);
+          border: 4px solid var(--color-ink);
+          box-shadow: var(--shadow-brutal);
+          background: #fff;
         }
-        @media(max-width:540px){
-          .community-grid{grid-template-columns:1fr!important;}
-          .community-grid a{border-right:none!important;}
-          .community-grid a:nth-last-child(2){border-bottom:4px solid var(--color-ink)!important;}
+
+        .community-card {
+          display: flex;
+          align-items: center;
+          gap: 0.65rem;
+          padding: 1.25rem 0.75rem;
+          min-width: 0;
+          color: var(--color-ink);
+          text-decoration: none;
+          background: #fff;
+          border-right: 4px solid var(--color-ink);
+          border-bottom: none;
+          transition: background 0.18s, transform 0.18s;
+          box-sizing: border-box;
         }
-        @media(max-width:1024px) and (min-width:769px) {
-          .community-grid a { padding: 1rem 0.5rem !important; gap: 0.5rem !important; }
-          .comm-text { font-size: 0.85rem !important; }
-          .comm-sub { font-size: 0.65rem !important; }
+
+        .community-card:last-child {
+          border-right: none;
+        }
+
+        /* 3 columns on tablet / medium screens (641px - 1080px) */
+        @media(max-width: 1080px) {
+          .community-grid {
+            grid-template-columns: repeat(3, 1fr) !important;
+          }
+          .community-card {
+            padding: 1.25rem 1rem !important;
+            border-right: 4px solid var(--color-ink) !important;
+            border-bottom: 4px solid var(--color-ink) !important;
+          }
+          .community-card:nth-child(3n) {
+            border-right: none !important;
+          }
+          .community-card:nth-child(n+4) {
+            border-bottom: none !important;
+          }
+        }
+
+        /* 2 columns on mobile (<= 640px) */
+        @media(max-width: 640px) {
+          .community-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+          .community-card {
+            padding: 1rem 0.75rem !important;
+            gap: 0.5rem !important;
+            border-right: 4px solid var(--color-ink) !important;
+            border-bottom: 4px solid var(--color-ink) !important;
+          }
+          .community-card:nth-child(2n) {
+            border-right: none !important;
+          }
+          .community-card:nth-last-child(-n+2) {
+            border-bottom: none !important;
+          }
+        }
+
+        /* 1 column on extra narrow phones (<= 340px) */
+        @media(max-width: 340px) {
+          .community-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .community-card {
+            border-right: none !important;
+            border-bottom: 4px solid var(--color-ink) !important;
+          }
+          .community-card:last-child {
+            border-bottom: none !important;
+          }
         }
       `}</style>
     </section>

@@ -94,8 +94,11 @@ export default function JoinUsBand() {
       </div>
 
       <style>{`
+        @media (max-width: 800px) {
+          .join-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
+        }
         @media (max-width: 640px) {
-          .join-grid { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
+          .join-grid { gap: 1.5rem !important; }
           .stats-grid { grid-template-columns: 1fr !important; }
           .stats-grid > div { border-right: none !important; border-bottom: 4px solid var(--color-ink) !important; }
           .stats-grid > div:last-child { border-bottom: none !important; }
