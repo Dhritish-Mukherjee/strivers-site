@@ -89,11 +89,14 @@ export default function EquationAnimation() {
   };
 
   return (
-    <div style={{
-      position: 'absolute', top: '4rem', right: '4rem',
-      opacity: 0.5, pointerEvents: 'none',
-      transform: 'rotate(-4deg)',
-    }}>
+    <div
+      id="equation-animation"
+      style={{
+        position: 'absolute', top: '4rem', right: '4rem',
+        opacity: 0.5, pointerEvents: 'none',
+        transform: 'rotate(-4deg)',
+      }}
+    >
       <svg width="220" height="100" viewBox="0 0 220 100">
         {/* ∫ */}
         <motion.path d="M 25,75 C 25,75 15,75 15,65 C 15,35 35,35 35,15 C 35,5 25,5 25,5" variants={drawVar} {...pathProps} />
@@ -119,7 +122,7 @@ export default function EquationAnimation() {
         {/* C */}
         <motion.path d="M 245,45 C 235,45 230,50 230,55 C 230,60 235,65 245,65" variants={drawAns2Var} {...pathProps} />
       </svg>
-      <style>{`@media(max-width:900px){div{display:none;}}`}</style>
+      <style>{`@media(max-width:900px){#equation-animation{display:none;}}`}</style>
     </div>
   );
 }
